@@ -1,4 +1,7 @@
-name: Build and Deploy FoodWasteApp
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
+name: Build and deploy ASP.Net Core app to Azure Web App - FoodWasteApp
 
 on:
   push:
@@ -11,8 +14,7 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v1
@@ -37,22 +39,22 @@ jobs:
     needs: build
     environment:
       name: 'Production'
-      url: ${{ needs.build.outputs.webapp-url }}
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
-      id-token: write # This is required for requesting the JWT
+      id-token: write #This is required for requesting the JWT
 
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v3
         with:
           name: .net-app
-
+      
       - name: Login to Azure
         uses: azure/login@v1
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_2F7EA5A3B41247C3BF29CCF11B9FD79B }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_FC8D8226467C49878F75401E6319E62D }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_A5E1423022CB429C985DF188911F217C }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_BF5BECBEE1854DFCB359041A4F14494C }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_23374126D02E47ED8B06FC46C2E7E45E }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_1BB2C912122B4E8E93EB921742DFB82D }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
@@ -61,3 +63,4 @@ jobs:
           app-name: 'FoodWasteApp'
           slot-name: 'Production'
           package: .
+          
