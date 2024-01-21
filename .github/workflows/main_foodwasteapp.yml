@@ -1,4 +1,4 @@
-name: Build and deploy ASP.Net Core app to Azure Web App - FoodWasteApp
+name: Build and Deploy FoodWasteApp
 
 on:
   push:
@@ -7,65 +7,52 @@ on:
   workflow_dispatch:
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up .NET Core
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: '6.x'
-          include-prerelease: true
-
-      - name: Run tests 
-        run: | 
-          cd FoodWasteApp
-          dotnet restore
-          dotnet build
-          dotnet test
-
   build:
-    runs-on: ubuntu-latest
-    needs: test
+    runs-on: windows-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '6.x'
+          dotnet-version: '6.0.x'
           include-prerelease: true
 
-      - name: Dotnet build and publish
-        run: |
-          cd FoodWasteApp
-          dotnet restore
-          dotnet build --configuration Release
-          dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/FoodWasteApp
+      - name: Build with dotnet
+        run: dotnet build --configuration Release
+
+      - name: dotnet publish
+        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: .net-app
-          path: ${{env.DOTNET_ROOT}}/FoodWasteApp
+          path: ${{env.DOTNET_ROOT}}/myapp
 
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     needs: build
     environment:
       name: 'Production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+      url: ${{ needs.build.outputs.webapp-url }}
+    permissions:
+      id-token: write # This is required for requesting the JWT
 
     steps:
       - name: Download artifact from build job
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: .net-app
+
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_2F7EA5A3B41247C3BF29CCF11B9FD79B }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_FC8D8226467C49878F75401E6319E62D }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_A5E1423022CB429C985DF188911F217C }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
@@ -73,4 +60,4 @@ jobs:
         with:
           app-name: 'FoodWasteApp'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_573BEEE092BA43089379AFEDE51E7489 }}
+          package: .
