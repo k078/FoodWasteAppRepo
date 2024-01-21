@@ -51,7 +51,7 @@ jobs:
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
-          name: FoodWasteApp
+          name: .net-app
           path: ${{env.DOTNET_ROOT}}/FoodWasteApp
 
   deploy:
@@ -65,7 +65,7 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v2
         with:
-          name: FoodWasteApp
+          name: .net-app
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
@@ -74,4 +74,4 @@ jobs:
           app-name: 'FoodWasteApp'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_573BEEE092BA43089379AFEDE51E7489 }}
-          package: FoodWasteApp
+          package: .net-app
