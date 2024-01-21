@@ -1,0 +1,137 @@
+﻿@using Core.Domain
+@model List<Pakket>
+
+@{
+    ViewData["Title"] = "Gereserveerde pakketten";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+
+<body>
+    <div class="text-center">
+        <h1>@ViewData["Title"]</h1>
+        @if (!Model.Any())
+        {
+            <p class="alert">Geen gereserveerde pakketten</p>
+        }
+        else
+        {
+            @if (User.IsInRole("Student"))
+            {
+
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Naam</th>
+                            <th>Prijs</th>
+                            <th>Stad</th>
+                            <th>Kantine</th>
+                            <th>Ophaaltijd</th>
+                            <th>Max ophaaltijd</th>
+                            <th>Type maaltijd</th>
+                            <th>18+</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var pakket in Model)
+                        {
+                            <tr>
+                                <td>@pakket.titel</td>
+                            <td>@pakket.prijs.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("nl-NL"))</td>
+                            <td>@pakket.stad</td>
+                            <td>@pakket.kantine.naam</td>
+                            <td>@pakket.pickup.ToString("yyyy-MM-dd HH:mm")</td>
+                            <td>@pakket.pickUpMax.ToString("yyyy-MM-dd HH:mm")</td>
+                            <td>@pakket.maaltijd</td>
+                                @if (pakket.volwassen == true)
+                                {
+                                    <td>Waar</td>
+                                }
+                                else
+                                {
+                                    <td>Niet waar</td>
+                                }
+                            <td>
+                                <form method="post" asp-controller="Pakket" asp-action="CancelReservering" asp-route-pakketId="@pakket.Id" asp-route-studentId="@ViewBag.StudentId">
+                                        <button type="submit" class="btn btn-primary" title="Annuleer reservering" data-confirm="Weet je zeker dat je deze reservering wilt annuleren?">Annuleer</button>
+                                </form>
+                            </td>
+                            <td>
+                                <a asp-controller="Pakket" asp-action="PakketDetails" asp-route-pakketId="@pakket.Id" class="btn btn-primary" title="Infogaina van pakket">Info</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                </table>
+            }
+            else
+            {
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Naam</th>
+                            <th>Prijs</th>
+                            <th>Stad</th>
+                            <th>Kantine</th>
+                            <th>Ophaaltijd</th>
+                            <th>Max ophaaltijd</th>
+                            <th>Type maaltijd</th>
+                            <th>18+</th>
+                            <th>Reservatie</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var pakket in Model)
+                        {
+                            <tr>
+                                <td>@pakket.titel</td>
+                                <td>@pakket.prijs.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("nl-NL"))</td>
+                                <td>@pakket.stad</td>
+                                <td>@pakket.kantine.naam</td>
+                                <td>@pakket.pickup.ToString("yyyy-MM-dd HH:mm")</td>
+                                <td>@pakket.pickUpMax.ToString("yyyy-MM-dd HH:mm")</td>
+                                <td>@pakket.maaltijd</td>
+                                @if (pakket.volwassen == true)
+                                {
+                                    <td>Waar</td>
+                                }
+                                else
+                                {
+                                    <td>Niet waar</td>
+                                }
+                                <td>@pakket.gereserveerd?.naam</td>
+                                <td>
+                                    <a asp-controller="Pakket" asp-action="PakketDetails" asp-route-pakketId="@pakket.Id" class="btn btn-primary" title="Infopagina vana pakket">Info</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        }
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var deleteButtons = document.querySelectorAll("button[data-confirm]");
+            deleteButtons.forEach(function (button) {
+                button.addEventListener("click", function () {
+                    var confirmationMessage = button.getAttribute("data-confirm");
+                    if (confirm(confirmationMessage)) {
+                        // Gebruiker heeft bevestigd, voer de verwijderactie uit
+                        var form = button.closest("form");
+                        form.submit();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

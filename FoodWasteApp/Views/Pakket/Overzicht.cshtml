@@ -1,0 +1,203 @@
+﻿@using Core.Domain
+@model OverzichtViewModel
+
+@{
+    ViewData["Title"] = "Overzicht";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+
+<body>
+    <div class="text-center">
+        <h1>@ViewData["Title"]</h1>
+        @if (Model ==null)
+        {
+            <p class="alert">Geen beschikbare maaltijden!</p>
+        }
+        @if (User.IsInRole("Student"))
+        {
+            @if (!string.IsNullOrEmpty(ViewBag.CustomError as string))
+            {
+                <div class="alert alert-danger text-center">
+                    @ViewBag.CustomError
+                </div>
+            }
+            <table>
+                <thead>
+                    <tr>
+                        <th>Naam</th>
+                        <th>Prijs</th>
+                        <th>Stad</th>
+                        <th>Kantine</th>
+                        <th>Ophaaltijd</th>
+                        <th>18+</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var pakket in Model.lijst3)
+                    {
+                        <tr>
+                            <td>@pakket.titel</td>
+                            <td>@pakket.prijs.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("nl-NL"))</td>
+                            <td>@pakket.stad</td>
+                            <td>
+                                @if (pakket.kantine != null)
+                                {
+                                    @pakket.kantine.naam
+                                }
+                            </td>
+                            <td>@pakket.pickup.ToString("yyyy-MM-dd HH:mm")</td>
+                            @if (pakket.volwassen == true)
+                                {
+                                <td>Waar</td>
+                            }
+                            else
+                            {
+                            <td>Niet waar</td>
+                            }
+                            <td>
+                                <form method="post" asp-controller="Pakket" asp-action="ReserveerPakket" asp-route-pakketId="@pakket.Id" asp-route-studentId="@ViewBag.StudentId">
+                                    <button type="submit" class="btn btn-primary" title="Reserveer een pakket">Reserveer</button>
+                                </form>
+                            </td>
+                            <td>
+                                <a asp-controller="Pakket" asp-action="PakketDetails" asp-route-pakketId="@pakket.Id" class="btn btn-primary" title="Infopagina van pakket">Info</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        @if (User.IsInRole("Medewerker"))
+        {
+            <table>
+                <thead>
+                    <tr>
+                        <th>Naam</th>
+                        <th>Prijs</th>
+                        <th>Stad</th>
+                        <th>Kantine</th>
+                        <th>Ophaaltijd</th>
+                        <th>18+</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var pakket in Model.lijst1)
+                    {
+                        <tr>
+                            <td>@pakket.titel</td>
+                            <td>@pakket.prijs.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("nl-NL"))</td>
+                            <td>@pakket.stad</td>
+                            <td>
+                                @if (pakket.kantine != null)
+                                {
+                                    @pakket.kantine.naam
+                                }
+                            </td>
+                            <td>@pakket.pickup.ToString("yyyy-MM-dd HH:mm")</td>
+                            @if (pakket.volwassen == true)
+                            {
+                                <td>Waar</td>
+                            }
+                            else
+                            {
+                                <td>Niet waar</td>
+                            }
+                            <td>
+                                <a asp-controller="Pakket" asp-action="PakketDetails" asp-route-pakketId="@pakket.Id" class="btn btn-info" title="Infopagina van pakket">
+                                    <i class="fas fa-info"></i> Info
+                                </a>
+                            </td>
+
+                            <td>
+                                <a asp-controller="Pakket" asp-action="UpdatePakket" asp-route-id="@pakket.Id" class="btn btn-update" title="Pakket bijwerken">
+                                    <i class="fas fa-edit"></i> Update
+                                </a>
+                            </td>
+
+                            <td>
+                                <form method="post" action="@Url.Action("DeletePakket", "Pakket", new { Id = pakket.Id })">
+                                    @Html.Hidden("Id", pakket.Id)
+                                    <button type="button" class="btn btn-danger" title="Pakket verwijderen" data-confirm="Weet je zeker dat je dit pakket wilt verwijderen?">
+                                        <i class="fas fa-trash-alt"></i> Verwijder
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+            <hr />
+            <h1>Overige kantines</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Naam</th>
+                        <th>Prijs</th>
+                        <th>Stad</th>
+                        <th>Kantine</th>
+                        <th>Ophaaltijd</th>
+                        <th>18+</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var pakket in Model.lijst2)
+                    {
+                        <tr>
+                            <td>@pakket.titel</td>
+                            <td>@pakket.prijs.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("nl-NL"))</td>
+                            <td>@pakket.stad</td>
+                            <td>
+                                @if (pakket.kantine != null)
+                                {
+                                    @pakket.kantine.naam
+                                }
+                            </td>
+                            <td>@pakket.pickup.ToString("yyyy-MM-dd HH:mm")</td>
+                            @if (pakket.volwassen == true)
+                            {
+                                <td>Waar</td>
+                            }
+                            else
+                            {
+                                <td>Niet waar</td>
+                            }
+                            <td>
+                                <a asp-controller="Pakket" asp-action="PakketDetails" asp-route-pakketId="@pakket.Id" class="btn btn-primary" title="Infopagina van pakket">
+                                    Info
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var deleteButtons = document.querySelectorAll("button[data-confirm]");
+            deleteButtons.forEach(function (button) {
+                button.addEventListener("click", function (event) {
+                    var confirmationMessage = button.getAttribute("data-confirm");
+                    if (!confirm(confirmationMessage)) {
+                        // Gebruiker heeft geannuleerd, voorkom verdere actie
+                        event.preventDefault();
+
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

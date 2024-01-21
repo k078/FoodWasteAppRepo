@@ -1,0 +1,66 @@
+﻿@using Core.Domain
+@model FoodWasteApp.Models.AddPakketViewModel
+
+@{
+    ViewData["Title"] = "Pakket toevoegen";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+
+<body>
+    <h1>Voeg Pakket toe</h1>
+    <form method="post" action="AddPakket" class="mt-3">
+
+        <div class="mb-3">
+            <label asp-for="titel" class="form-label">Naam:</label>
+            <input type="text" class="form-control" asp-for="titel">
+            <span asp-validation-for="titel" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="pickup" class="form-label">Ophaaltijd: </label>
+            <input type="datetime-local" class="form-control" asp-for="pickup">
+            <span asp-validation-for="pickup" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="pickUpMax" class="form-label">Verlooptijd: </label>
+            <input type="datetime-local" class="form-control" asp-for="pickUpMax">
+            <span asp-validation-for="pickUpMax" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="prijs" class="form-label">Prijs: </label>
+            <input type="number" step="0.01" class="form-control" asp-for="prijs">
+            <span asp-validation-for="prijs" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="maaltijd" class="form-label">Maaltijd: </label>
+            <select asp-for="maaltijd" class="form-control" asp-items="Html.GetEnumSelectList<Maaltijd>()"></select>
+        </div>
+
+        <div class="mb-3">
+            Selecteer producten:
+            @foreach (var product in Model.producten)
+            {
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="selectedProducten" value="@product.Id">
+                    <label class="form-check-label">
+                        @product.naam
+                    </label>
+                </div>
+            }
+            <span asp-validation-for="selectedProducten" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="warm" class="form-label">Warme maaltijd?</label><br />
+            <input type="radio" asp-for="warm" value="true" /> Ja
+            <input type="radio" asp-for="warm" value="false" /> Nee
+            <span asp-validation-for="warm" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Voeg maaltijd toe</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,28 @@
+﻿@model FoodWasteApp.Models.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Registreren";
+    var returnUrl = Context.Request.Query["ReturnUrl"];
+}
+
+<div class="login-form-wrapper">
+    <div class="form-container p-3">
+        <h1>@ViewData["Title"]</h1>
+        <form asp-action="Register" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label">Email: </label>
+                <input type="email" class="form-control" asp-for="Email">
+            </div>
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label">Wachtwoord: </label>
+                <input type="password" class="form-control" asp-for="Password">
+            </div>
+            <div class="mb-3">
+                <label asp-for="ConfirmPassword" class="form-label">Herhaal wachtwoord: </label>
+                <input type="password" class="form-control" asp-for="ConfirmPassword">
+            </div>
+            <input type="submit" class="btn btn-primary" value="Registreer">
+        </form>
+    </div>
+</div>

@@ -1,0 +1,160 @@
+html {
+    font-size: 14px;
+    font-family: "Frutiger LT STD 77 Black Condensed",helvetica,sans-serif !important;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+/* Table Styling */
+table {
+    width: 100%;
+    margin: 0 auto;
+    border-collapse: collapse;
+}
+
+    table th {
+        background-color: #306100;
+        color: #fff;
+        font-size: 15px;
+        padding: 10px;
+        text-align: left;
+        padding: 8px;
+    }
+
+    table td {
+        padding: 8px;
+        border-bottom: .5px solid #ddd;
+        text-align: left;
+        padding-left: 10px;
+    }
+
+    table tr {
+        padding-bottom: 10px;
+    }
+
+        table tr:nth-child(odd) {
+            background-color: #8BC750;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #8BC750;
+        }
+
+
+footer {
+    background-color: white;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.footer a {
+    color: #306100 !important;
+}
+
+.navbar {
+    background-color: white !important;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: large;
+}
+
+body {
+    background-color: #E6FFCC;
+}
+
+a {
+    font-family: "FrutigerLTW05-65Bold",helvetica,sans-serif !important;
+    color: #306100;
+}
+
+.navbar a {
+    color: #306100 !important;
+}
+
+.alert {
+    padding: 20px;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: black;
+    font-size: 18px;
+    background-color: #afd582;
+    border-color: black;
+}
+
+.btn-primary {
+    background-color: #C8FA96 !important;
+    color: black;
+    border-color: black !important;
+}
+
+    .btn-primary:hover {
+        background-color: #80a059 !important;
+        color: black;
+        border-color: black !important;
+    }
+.btn-danger{
+    background-color: #ff9c9c !important;
+    color: black;
+    border-color: black !important;
+}
+
+    .btn-danger:hover {
+        background-color: #ff7a7a !important;
+        color: black;
+        border-color: black !important;
+    }
+
+.btn-update {
+    background-color: #89b2ff !important;
+    color: black;
+    border-color: black !important;
+}
+    .btn-update:hover {
+        background-color: #4e8cff !important;
+        color: black;
+        border-color: black !important;
+    }
+.btn-info {
+    background-color: ghostwhite !important;
+    color: black;
+    border-color: black !important;
+}
+.btn-info:hover {
+    background-color: #dedede !important;
+    color: black;
+    border-color: black !important;
+}
+.btn-logout {
+    background-color: #ddd !important;
+    border-color: black !important;
+    color: black !important;
+}
+.btn-logout:hover {
+    background-color: #808080 !important;
+    color: black;
+    border-color: black !important;
+}
+.btn i.fas {
+    margin-right: 5px; /* Ruimte tussen het icoon en de tekst aanpassen */
+    font-size: 20px; /* Grootte van het icoon aanpassen */
+}
+.custom-icon {
+    font-size: 1.5em; /* Verander deze waarde om de grootte aan te passen */
+}
+

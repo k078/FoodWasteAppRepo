@@ -1,0 +1,23 @@
+﻿@model PakketDetailsViewModel
+
+
+@{
+    ViewData["Title"] = "Pakket details";
+}
+<h1>Pakket Details</h1>
+
+<h2>@Model.pakket.titel</h2>
+<p>Ophaaltijd: @Model.pakket.pickup.ToString("dd-MM-yyyy HH:mm")</p>
+<p>Maximale ophaaltijd: @Model.pakket.pickUpMax.ToString("dd-MM-yyyy HH:mm")</p>
+<p>Prijs: @Model.pakket.prijs</p>
+<p>Maaltijd: @Model.pakket.maaltijd</p>
+<p>18+: @Model.pakket.volwassen</p>
+<p>Warme maaltijd: @Model.pakket.warm</p>
+
+<h2>Producten</h2>
+<ul>
+        @foreach (var product in Model.producten)
+    {
+        <li>@product.naam</li>
+    }
+</ul>
