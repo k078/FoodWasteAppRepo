@@ -74,4 +74,3 @@ jobs:
           app-name: 'FoodWasteApp'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_573BEEE092BA43089379AFEDE51E7489 }}
-          package: .net-app
