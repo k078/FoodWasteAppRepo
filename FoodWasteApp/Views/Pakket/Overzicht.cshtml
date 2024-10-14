@@ -14,10 +14,6 @@
 <body>
     <div class="text-center">
         <h1>@ViewData["Title"]</h1>
-        @if (Model ==null)
-        {
-            <p class="alert">Geen beschikbare maaltijden!</p>
-        }
         @if (User.IsInRole("Student"))
         {
             @if (!string.IsNullOrEmpty(ViewBag.CustomError as string))
@@ -26,6 +22,12 @@
                     @ViewBag.CustomError
                 </div>
             }
+                    @if (!Model.lijst3.Any())
+        {
+            <p class="alert">Geen beschikbare maaltijden!</p>
+        }
+        else{
+
             <table>
                 <thead>
                     <tr>
@@ -62,20 +64,29 @@
                             <td>Niet waar</td>
                             }
                             <td>
-                                <form method="post" asp-controller="Pakket" asp-action="ReserveerPakket" asp-route-pakketId="@pakket.Id" asp-route-studentId="@ViewBag.StudentId">
-                                    <button type="submit" class="btn btn-primary" title="Reserveer een pakket">Reserveer</button>
-                                </form>
+                                <a asp-controller="Pakket" asp-action="PakketDetails" asp-route-pakketId="@pakket.Id" class="btn btn-info" title="Infogaina van pakket">
+                                    <i class="fas fa-info"></i> Info</a>
                             </td>
                             <td>
-                                <a asp-controller="Pakket" asp-action="PakketDetails" asp-route-pakketId="@pakket.Id" class="btn btn-primary" title="Infopagina van pakket">Info</a>
+                                <form method="post" asp-controller="Pakket" asp-action="ReserveerPakket" asp-route-pakketId="@pakket.Id" asp-route-studentId="@ViewBag.StudentId">
+                                    <button type="submit" class="btn btn-update" title="Reserveer een pakket">
+                                         <i class="fas fa-plus"></i>Reserveer</button>
+                                </form>
                             </td>
                         </tr>
                     }
                 </tbody>
             </table>
         }
+        }
         @if (User.IsInRole("Medewerker"))
         {
+        @if (!Model.lijst1.Any())
+        {
+            <p class="alert">Geen beschikbare maaltijden!</p>
+        }
+        else{
+
             <table>
                 <thead>
                     <tr>
@@ -127,7 +138,7 @@
                             <td>
                                 <form method="post" action="@Url.Action("DeletePakket", "Pakket", new { Id = pakket.Id })">
                                     @Html.Hidden("Id", pakket.Id)
-                                    <button type="button" class="btn btn-danger" title="Pakket verwijderen" data-confirm="Weet je zeker dat je dit pakket wilt verwijderen?">
+                                    <button type="submit" class="btn btn-danger" title="Pakket verwijderen" data-confirm="Weet je zeker dat je dit pakket wilt verwijderen?">
                                         <i class="fas fa-trash-alt"></i> Verwijder
                                     </button>
                                 </form>
@@ -137,8 +148,15 @@
                 </tbody>
 
             </table>
+        }
             <hr />
             <h1>Overige kantines</h1>
+            @if(!Model.lijst2.Any())
+            {
+                <p class="alert">Geen beschikbare maaltijden!</p>
+            }
+            else{
+
             <table>
                 <thead>
                     <tr>
@@ -182,22 +200,29 @@
                     }
                 </tbody>
             </table>
+            }
         }
     </div>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var deleteButtons = document.querySelectorAll("button[data-confirm]");
-            deleteButtons.forEach(function (button) {
-                button.addEventListener("click", function (event) {
-                    var confirmationMessage = button.getAttribute("data-confirm");
-                    if (!confirm(confirmationMessage)) {
-                        // Gebruiker heeft geannuleerd, voorkom verdere actie
-                        event.preventDefault();
+document.addEventListener("DOMContentLoaded", function () {
+    var deleteButtons = document.querySelectorAll("button[data-confirm]");
+    deleteButtons.forEach(function (button) {
+        button.addEventListener("click", function (event) {
+            console.log("Button clicked");
 
-                    }
-                });
-            });
+            var confirmationMessage = button.getAttribute("data-confirm");
+            console.log("Confirmation message:", confirmationMessage);
+
+            if (!confirm(confirmationMessage)) {
+                // Gebruiker heeft geannuleerd, voorkom verdere actie
+                event.preventDefault();
+                console.log("Delete action canceled by user.");
+            } else {
+                console.log("Delete action confirmed by user.");
+            }
         });
+    });
+});
     </script>
 </body>
 </html>

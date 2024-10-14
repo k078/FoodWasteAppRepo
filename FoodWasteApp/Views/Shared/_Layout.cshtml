@@ -19,7 +19,7 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a asp-controller="Home" asp-action="Index" class="navbar-brand">
-                    <img src="/favicon.ico.png" title="Logo van AvansNoToWaste" width="120" height="60">
+                    <img src="/favicon.ico.png" title="Logo van Avans" width="80" height="60">
                 </a>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between align-content-center">
                     <ul class="navbar-nav flex-grow-1">
@@ -71,22 +71,23 @@
                         </ul>
                     }
                     else{
-                        <ul class="navbar-nav right">
-                            <li class="nav-item" style="margin-right: 30px;">
-                                <b>
-                                    <a title="Inlogpagina" asp-area="" asp-controller="Account" asp-action="Login">
-                                        <i class="fas fa-sign-in custom-icon" title="Inloggen"></i>
-                                    </a>
-                                </b>
-                            </li>
-                            <li class="nav-item" style="margin-right: 10px;">
-                                <b>
-                                    <a asp-area="" title="Registreerpagina" asp-controller="Account" asp-action="Register">
-                                        <i class="fas fa-user-plus custom-icon" title="Registreer"></i>
-                                    </a>
-                                </b>
-                            </li>
-                        </ul>
+<ul class="navbar-nav right">
+    <li class="nav-item" style="margin-right: 30px;">
+        <form method="get" title="Inloggen" asp-area="" asp-controller="Account" asp-action="Login">
+            <button style="color: black" class="btn btn-logout">
+                <i class="fas fa-user" title="Login"></i>Login
+            </button>
+        </form>
+    </li>
+    <li class="nav-item" style="margin-right: 10px;">
+        <form method="get" title="Registreren" asp-area="" asp-controller="Account" asp-action="Register">
+            <button style="color: black" class="btn btn-logout">
+                <i class="fas fa-user-plus" title="Registreer"></i>Registreer
+            </button>
+        </form>
+    </li>
+</ul>
+
                     }
                 </div>
             </div>

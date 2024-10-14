@@ -11,8 +11,8 @@
 <p>Maximale ophaaltijd: @Model.pakket.pickUpMax.ToString("dd-MM-yyyy HH:mm")</p>
 <p>Prijs: @Model.pakket.prijs</p>
 <p>Maaltijd: @Model.pakket.maaltijd</p>
-<p>18+: @Model.pakket.volwassen</p>
-<p>Warme maaltijd: @Model.pakket.warm</p>
+<p>18+: @(Model.pakket.volwassen ? "waar" : "niet waar")</p>
+<p>Warme maaltijd: @(Model.pakket.warm ? "waar" : "niet waar")</p>
 
 <h2>Producten</h2>
 <ul>

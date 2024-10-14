@@ -16,7 +16,7 @@
         <h1>@ViewData["Title"]</h1>
         @if (!Model.Any())
         {
-            <p class="alert">Geen gereserveerde pakketten</p>
+            <p class="alert">U heeft nog geen pakket(ten) gereserveerd!</p>
         }
         else
         {
@@ -59,12 +59,14 @@
                                     <td>Niet waar</td>
                                 }
                             <td>
-                                <form method="post" asp-controller="Pakket" asp-action="CancelReservering" asp-route-pakketId="@pakket.Id" asp-route-studentId="@ViewBag.StudentId">
-                                        <button type="submit" class="btn btn-primary" title="Annuleer reservering" data-confirm="Weet je zeker dat je deze reservering wilt annuleren?">Annuleer</button>
-                                </form>
+                                <a asp-controller="Pakket" asp-action="PakketDetails" asp-route-pakketId="@pakket.Id" class="btn btn-info" title="Infogaina van pakket">
+                                    <i class="fas fa-info"></i> Info</a>
                             </td>
                             <td>
-                                <a asp-controller="Pakket" asp-action="PakketDetails" asp-route-pakketId="@pakket.Id" class="btn btn-primary" title="Infogaina van pakket">Info</a>
+                                <form method="post" asp-controller="Pakket" asp-action="CancelReservering" asp-route-pakketId="@pakket.Id" asp-route-studentId="@ViewBag.StudentId">
+                                        <button type="submit" class="btn btn-danger" title="Annuleer reservering" data-confirm="Weet je zeker dat je deze reservering wilt annuleren?">
+                                            <i class="fas fa-ban"></i>Annuleer</button>
+                                </form>
                             </td>
                         </tr>
                     }

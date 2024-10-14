@@ -238,18 +238,51 @@ namespace FoodWasteApp.Controllers
                 var kantiness = _kantineRepo.GetKantines();
                 var mederkerLocatie = medewerker.kantine.locatie;
                 var producten = _productRepo.GetProducten();
-                var SelectedProducten = selectedProducten != null
+                var selectedProductenList = selectedProducten != null
                     ? producten.Where(p => selectedProducten.Contains(p.Id)).ToList()
                     : new List<Product>();
 
-                bool isVolwassen = SelectedProducten.Any(p => p.alcohol);
-                if (ModelState.IsValid)
+                bool isVolwassen = selectedProductenList.Any(p => p.alcohol);
+
+                var kantine = medewerker.kantine;
+
+                var currentTime = DateTime.Now;
+                var timeDifference = addPakketViewModel.pickup - currentTime;
+
+                // Voeg handmatig foutmeldingen toe voor ontbrekende velden
+                if (string.IsNullOrWhiteSpace(addPakketViewModel.titel))
                 {
-                    var kantine = medewerker.kantine;
+                    ModelState.AddModelError("titel", "Titel is verplicht");
+                }
+                if (addPakketViewModel.pickup == null)
+                {
+                    ModelState.AddModelError("pickup", "Ophaaltijd is verplicht");
+                }
+                if (addPakketViewModel.pickUpMax == null)
+                {
+                    ModelState.AddModelError("pickUpMax", "PickupMax is verplicht");
+                }
+                if (addPakketViewModel.prijs == 0 || addPakketViewModel.prijs < 0.50)
+                {
+                    ModelState.AddModelError("prijs", "Prijs moet minimaal 50 cent zijn");
+                }
+                if (selectedProductenList.Count == 0)
+                {
+                    ModelState.AddModelError("producten", "Selecteer minimaal één product");
+                }
 
-                    var currentTime = DateTime.Now;
-                    var timeDifference = addPakketViewModel.pickup - currentTime;
+                // Voeg datetime-validatie toe
+                if (addPakketViewModel.pickup != null && addPakketViewModel.pickup < currentTime)
+                {
+                    ModelState.AddModelError("pickup", "Ophaaltijd moet in de toekomst liggen");
+                }
+                if (addPakketViewModel.pickUpMax != null && addPakketViewModel.pickUpMax < addPakketViewModel.pickup)
+                {
+                    ModelState.AddModelError("pickUpMax", "PickupMax moet later zijn dan ophaaltijd");
+                }
 
+                if (ModelState.IsValid) // Voeg deze controle toe om de verdere verwerking alleen uit te voeren als de model staat geldig is
+                {
                     if (timeDifference.TotalHours < 48 && addPakketViewModel.pickup >= currentTime)
                     {
                         // Controleer of kantine.warm overeenkomt met addPakketViewModel.warm
@@ -266,7 +299,7 @@ namespace FoodWasteApp.Controllers
                                 stad = kantine.stad,
                                 volwassen = isVolwassen,
                                 kantine = kantine,
-                                producten = SelectedProducten,
+                                producten = selectedProductenList,
                                 warm = addPakketViewModel.warm
                             };
                             if (pakket.pickUpMax > pakket.pickup)
@@ -281,7 +314,7 @@ namespace FoodWasteApp.Controllers
                         }
                         else
                         {
-                            ModelState.AddModelError("warm", "Uw kantine ondersteund geen warme maaltijden!");
+                            ModelState.AddModelError("warm", "Uw kantine ondersteunt geen warme maaltijden!");
                         }
                     }
                     else
@@ -289,6 +322,8 @@ namespace FoodWasteApp.Controllers
                         ModelState.AddModelError("pickup", "Ophaaltijd mag maar 2 dagen vanaf vandaag zijn!");
                     }
                 }
+
+                // Als er fouten zijn, laad de view opnieuw met het model
                 var kantines = _kantineRepo.GetKantines();
                 addPakketViewModel.producten = producten.ToList();
                 ViewBag.Kantines = kantines;
@@ -296,12 +331,14 @@ namespace FoodWasteApp.Controllers
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("CustomError", "Something went wrong while adding a new pakket: " + ex.Message);
+                ModelState.AddModelError("CustomError", "Er is iets misgegaan bij het toevoegen van een nieuw pakket: " + ex.Message);
                 var kantines = _kantineRepo.GetKantines();
                 ViewBag.Kantines = kantines;
                 return View(addPakketViewModel);
             }
         }
+
+
 
         [HttpPost]
         [Authorize(Roles = "Medewerker")]

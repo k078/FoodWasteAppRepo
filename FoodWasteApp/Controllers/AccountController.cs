@@ -42,7 +42,7 @@ namespace FoodWasteApp.Controllers
                 {
                     return RedirectToAction("Overzicht", "Pakket");
                 }
-                ModelState.AddModelError("Login", "Er gaat iets mis bij de inlogpoging");
+                ModelState.AddModelError("Login", "Deze gebruiker of combinatie email/wachtwoord bestaat niet");
             }
             return View(model);
 
