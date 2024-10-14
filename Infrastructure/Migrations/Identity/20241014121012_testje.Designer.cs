@@ -4,6 +4,7 @@ using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations.Identity
 {
     [DbContext(typeof(IdentityContext))]
-    partial class IdentityContextModelSnapshot : ModelSnapshot
+    [Migration("20241014121012_testje")]
+    partial class testje
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,14 +54,14 @@ namespace Infrastructure.Migrations.Identity
                         new
                         {
                             Id = "1",
-                            ConcurrencyStamp = "c99c1184-c118-401b-923e-8f39cfa5fdc1",
+                            ConcurrencyStamp = "e590ae3b-8c9f-4d60-aacb-07e4bbef45f5",
                             Name = "Medewerker",
                             NormalizedName = "MEDEWERKER"
                         },
                         new
                         {
                             Id = "2",
-                            ConcurrencyStamp = "a9ea6de6-ba4e-4582-ac69-8042facc42cb",
+                            ConcurrencyStamp = "b097544b-6d50-41e1-88f2-0bd95feeb85b",
                             Name = "Student",
                             NormalizedName = "STUDENT"
                         });
@@ -271,13 +273,13 @@ namespace Infrastructure.Migrations.Identity
                         {
                             Id = "2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "08330d74-7c23-4075-9bbf-9d381b37e399",
+                            ConcurrencyStamp = "6cd84c83-1a0c-4e46-be1a-3b61ff6d8b57",
                             Email = "kalle@mail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEDrHcxAoVjDVzNz4Kw4JF4yjVkgZra+viD5oDENnjiGvk43eEiA0V/dQvx2xsKrikQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDxGlg6mhGvBBVF+kI71ZzX7d0pFBHQvmwkS7mMTZSKJaPeRxmFbhNuyqYjJdpaHSQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5d29cc62-8e0d-4be9-9f5d-6817be9ebb34",
+                            SecurityStamp = "e62dab46-c0f7-4d95-988a-c2ef75a3dc64",
                             TwoFactorEnabled = false,
                             UserName = "kalle@mail.com"
                         },
@@ -285,13 +287,13 @@ namespace Infrastructure.Migrations.Identity
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ccbd0caa-3346-4fd9-9863-5e911ebff479",
+                            ConcurrencyStamp = "36092480-10db-48cc-ba4d-c31b3a3d72d6",
                             Email = "truus@avans.nl",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEKPUipRiq0wCdqj7LfCgk++rs47P0NUKhl19uF8bn3Aiy97USqXxV/vz963nb1iB3A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEExgRKsadCjPwOdWvEKQ4iEewJwwUEkNZvRnWTiyQbMa1+t8HZbcn3K/Q1Z+cFVAjA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "fc51e33b-b402-4e04-8bc7-7121f82b3eb2",
+                            SecurityStamp = "6783bea5-cc88-4175-b5e7-db7670de692e",
                             TwoFactorEnabled = false,
                             UserName = "truus@avans.nl"
                         });

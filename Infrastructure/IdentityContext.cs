@@ -37,14 +37,14 @@ namespace Infrastructure
             modelBuilder.Entity<ApplicationUser>().HasData(
                 new ApplicationUser
                 {
-                    Id = "1",
+                    Id = "2",
                     UserName = "kalle@mail.com",
                     Email = "kalle@mail.com",
                     PasswordHash = hasher.HashPassword(null, "Test1!")
                 },
                 new ApplicationUser
                 {
-                    Id = "2",
+                    Id = "1",
                     UserName = "truus@avans.nl",
                     Email = "truus@avans.nl",
                     PasswordHash = hasher.HashPassword(null, "Truus1!")
