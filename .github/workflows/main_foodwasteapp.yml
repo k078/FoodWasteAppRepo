@@ -52,15 +52,15 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v1
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_BF5BECBEE1854DFCB359041A4F14494C }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_23374126D02E47ED8B06FC46C2E7E45E }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_1BB2C912122B4E8E93EB921742DFB82D }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_46E2C79F4BD44423A13B2938A1827C7F }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_3990D8CA9AE14CDEBE2B5E3ECC30AD7C }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_9D2FDBBD143F45E0A0BEE6810E5809BF }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'FoodWasteApp'
+          app-name: 'FoodWasteApp-1'
           slot-name: 'Production'
           package: .
           
