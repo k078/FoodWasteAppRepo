@@ -60,7 +60,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'FoodWasteApp'
+          app-name: 'FoodWasteApp-1'
           slot-name: 'Production'
           package: .
           
