@@ -1,11 +1,11 @@
 # Workflow for deploying both FoodApp (Web App) and API project
 
-name: Build and deploy ASP.Net Core apps to Azure Web Apps - FoodApp & API
+name: Build and deploy ASP.Net Core apps to Azure Web Apps - FoodWasteApp & API
 
 on:
   push:
     branches:
-      - master
+      - main
   workflow_dispatch:
 
 jobs:
