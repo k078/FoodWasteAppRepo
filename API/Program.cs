@@ -1,5 +1,4 @@
 using API.GraphQL;
-using Application.Services;
 using Core.DomainServices.Interfaces;
 using Core.DomainServices.Services;
 using Infrastructure;
