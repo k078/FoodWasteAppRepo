@@ -60,7 +60,7 @@ jobs:
       - name: Download artifact from build job (FoodWasteApp)
         uses: actions/download-artifact@v3
         with:
-          name: FoodWasteApp  
+          name: FoodWasteApp-1
           path: ./FoodWasteAppArtifact
 
       - name: Download artifact from build job (API)
