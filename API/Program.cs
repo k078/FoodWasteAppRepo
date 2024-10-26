@@ -19,9 +19,19 @@ builder.Services.AddScoped<IKantineRepo, KantineEFRepo>();
 builder.Services.AddScoped<IProductRepo, ProductEFRepo>();
 builder.Services.AddScoped<IPakketService, PakketService>();
 
+var defaultconnection = string.Empty;
+
+if (builder.Environment.IsDevelopment())
+{
+    defaultconnection = builder.Configuration.GetConnectionString("LocalDefaultConnection");
+}
+else
+{
+    defaultconnection = Environment.GetEnvironmentVariable("DefaultConnection");
+}
 
 builder.Services.AddDbContext<FoodWasteDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(defaultconnection));
 
 
 builder.Services.AddGraphQLServer()
