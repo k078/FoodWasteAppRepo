@@ -1,12 +1,11 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
+# Workflow for deploying both FoodApp (Web App) and API project
 
-name: Build and deploy ASP.Net Core app to Azure Web App - FoodWasteApp
+name: Build and deploy ASP.Net Core apps to Azure Web Apps - FoodApp & API
 
 on:
   push:
     branches:
-      - main
+      - master
   workflow_dispatch:
 
 jobs:
@@ -25,35 +24,57 @@ jobs:
       - name: Build with dotnet
         run: dotnet build --configuration Release
 
-      - name: Run Tests
+      - name: Run Tests 
         run: |
-          echo "Running unit tests..."
-          dotnet test --configuration Release --no-build --logger "console;verbosity=detailed"
+            echo "Running unit tests..."
+            dotnet test --configuration Release --no-build --logger "console;verbosity=detailed" 
 
-      - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+      - name: dotnet publish FoodWasteApp
+        run: dotnet publish FoodWasteApp/FoodWasteApp.csproj -c Release -o ${{env.DOTNET_ROOT}}/FoodWasteApp
 
-      - name: Upload artifact for deployment job
+      - name: dotnet publish API
+        run: dotnet publish API/API.csproj -c Release -o ${{env.DOTNET_ROOT}}/API  
+
+      - name: Upload artifact for FoodApp deployment
         uses: actions/upload-artifact@v3
         with:
-          name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
+          name: FoodWasteApp-1
+          path: ${{env.DOTNET_ROOT}}/FoodWasteApp
+
+      - name: Upload artifact for API deployment
+        uses: actions/upload-artifact@v3
+        with:
+          name: FoodWasteApp-API
+          path: ${{env.DOTNET_ROOT}}/API
 
   deploy:
     runs-on: windows-latest
     needs: build
     environment:
       name: 'Production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+      url: ${{ steps.deploy-to-foodapp.outputs.webapp-url }}  
     permissions:
-      id-token: write #This is required for requesting the JWT
+      id-token: write 
 
     steps:
-      - name: Download artifact from build job
+      - name: Download artifact from build job (FoodWasteApp)
         uses: actions/download-artifact@v3
         with:
-          name: .net-app
-      
+          name: FoodWasteApp  
+          path: ./FoodWasteAppArtifact
+
+      - name: Download artifact from build job (API)
+        uses: actions/download-artifact@v3
+        with:
+          name: FoodWasteApp-API 
+          path: ./APIArtifact
+
+      - name: List Files in FoodAppArtifact
+        run: ls ./FoodWasteAppArtifact
+
+      - name: List Files in APIArtifact
+        run: ls ./APIArtifact
+
       - name: Login to Azure
         uses: azure/login@v1
         with:
@@ -61,11 +82,18 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_3990D8CA9AE14CDEBE2B5E3ECC30AD7C }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_9D2FDBBD143F45E0A0BEE6810E5809BF }}
 
-      - name: Deploy to Azure Web App
-        id: deploy-to-webapp
+      - name: Deploy FoodApp to Azure Web App
+        id: deploy-to-foodapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'FoodWasteApp-1'
+          app-name: 'FoodWasteApp-1' 
           slot-name: 'Production'
-          package: .
-          
+          package: ./FoodWasteAppArtifact  
+
+      - name: Deploy API to Azure Web App
+        id: deploy-to-api
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'FoodWasteApp-API'  
+          slot-name: 'Production'
+          package: ./APIArtifact
