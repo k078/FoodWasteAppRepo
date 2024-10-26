@@ -25,6 +25,11 @@ jobs:
       - name: Build with dotnet
         run: dotnet build --configuration Release
 
+      - name: Run Tests
+        run: |
+          echo "Running unit tests..."
+          dotnet test --configuration Release --no-build --logger "console;verbosity=detailed"
+
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
