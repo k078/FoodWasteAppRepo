@@ -26,13 +26,13 @@ var identityconnection = string.Empty;
 
 if (builder.Environment.IsDevelopment())
 {
-    defaultconnection = builder.Configuration.GetConnectionString("LocalDefaultConnection");
+    defaultconnection = builder.Configuration.GetConnectionString("LocalConnection");
     identityconnection = builder.Configuration.GetConnectionString("LocalIdentityConnection");
 }
 else
 {
-    defaultconnection = Environment.GetEnvironmentVariable("DefaultConnection");
-    identityconnection= Environment.GetEnvironmentVariable("IdentityConnection");
+    defaultconnection = builder.Configuration.GetConnectionString("LocalDefaultConnection");
+    identityconnection= builder.Configuration.GetConnectionString("LocalIdentityConnection");
 }
 
 builder.Services.AddDbContext<FoodWasteDbContext>(options => options.UseSqlServer(defaultconnection));

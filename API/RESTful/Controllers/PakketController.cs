@@ -23,6 +23,7 @@ namespace API.RESTful.Controllers
         }
 
         [HttpGet]
+        [ServiceFilter(typeof(AuthFilter))]
         [ProducesResponseType(typeof(IEnumerable<Pakket>), 200)]
         [ProducesResponseType(500)]
         public IActionResult GetPakketten()
@@ -32,6 +33,7 @@ namespace API.RESTful.Controllers
         }
 
         [HttpGet("gereserveerd")]
+        [ServiceFilter(typeof(AuthFilter))]
         [ProducesResponseType(typeof(IEnumerable<Pakket>), 200)]
         [ProducesResponseType(500)]
         public IActionResult GetGereserveerd()
@@ -48,6 +50,7 @@ namespace API.RESTful.Controllers
         }
 
         [HttpPost("reserveer")]
+        [ServiceFilter(typeof(AuthFilter))]
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
         [ProducesResponseType(400)]
