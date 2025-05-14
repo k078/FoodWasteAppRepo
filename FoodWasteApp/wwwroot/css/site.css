@@ -1,4 +1,4 @@
-html {
+﻿html {
     font-size: 14px;
     font-family: "Frutiger LT STD 77 Black Condensed",helvetica,sans-serif !important;
 }
@@ -16,6 +16,7 @@ html {
 
 body {
     margin-bottom: 60px;
+    background-color: #f5f0e6;
 }
 /* Table Styling */
 table {
@@ -72,9 +73,7 @@ footer {
     font-size: large;
 }
 
-body {
-    background-color: #E6FFCC;
-}
+
 
 a {
     font-family: "FrutigerLTW05-65Bold",helvetica,sans-serif !important;
@@ -158,3 +157,97 @@ a {
     font-size: 1.5em; /* Verander deze waarde om de grootte aan te passen */
 }
 
+
+
+
+/* === LOGIN FORM STYLING (NIEUW TOEGEVOEGD) === */
+.login-form-wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 0px;
+    margin-top: auto;
+    margin-bottom: auto;
+    padding: 50px;
+}
+
+.form-container {
+    background-color: white;
+    border-radius: 16px;
+    padding: 32px;
+    max-width: 450px;
+    width: 100%;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+}
+
+    .form-container h1 {
+        font-size: 35px;
+        margin-bottom: 25px;
+        font-weight: bold;
+        color: #2e7d32;
+        text-align: center;
+        padding: 10px;
+    }
+
+.form-label {
+    color: #2e7d32;
+    font-weight: bold;
+}
+
+.form-control {
+    border: 1px solid #80d784;
+    border-radius: 6px;
+    padding: 10px;
+    font-size: 15px;
+}
+
+    .form-control:focus {
+        outline: none;
+        border-color: #2e7d32;
+        box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.2);
+    }
+
+.btn-primary {
+    background-color: #2e7d32 !important;
+    border: none;
+    border-radius: 12px;
+    color: white !important;
+    width: 100%;
+    padding: 10px;
+    font-weight: bold;
+    box-shadow: none !important;
+}
+
+    .btn-primary:hover {
+        background-color: #80d784 !important;
+        border-color: #8b5e3c !important;
+        color: black !important;
+        box-shadow: none !important;
+    }
+
+    .btn-primary:active {
+        background-color: #e27d60 !important;
+        box-shadow: none !important;
+    }
+
+
+.validation-summary-errors {
+    background-color: #f1bcbc; 
+    border-left: 5px solid #e27d60; 
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+    
+    .validation-summary-errors ul {
+        padding-left: 0;
+        margin: 0;
+        list-style: none;
+    }
+
+    .validation-summary-errors li {
+        margin-bottom: 6px;
+        color: black;
+    }

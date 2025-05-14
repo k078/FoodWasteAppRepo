@@ -7,8 +7,7 @@
 }
 
 <div class="login-form-wrapper">
-
-    <div class="  form-container p-3">
+    <div class="form-container p-3">
         <h1>@ViewData["Title"]</h1>
         <form asp-action="Login" asp-route-returnurl="@returnUrl" method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
@@ -21,7 +20,6 @@
                 <input type="password" class="form-control" placeholder="*" asp-for="Password">
             </div>
             <input type="submit" class="btn btn-primary" value="Inloggen">
-
         </form>
     </div>
 </div>
