@@ -127,8 +127,8 @@ a {
     }
 
 .btn-logout-custom {
-    background-color: #f1bcbc !important; /* Lichtrood */
-    color: black !important;
+    background-color: #dc4a4a !important; /* Lichtrood */
+    color: white !important;
     border: none !important;
     font-weight: 700 !important; /* Bold */
     font-size: 18px !important; /* Grotere tekst */

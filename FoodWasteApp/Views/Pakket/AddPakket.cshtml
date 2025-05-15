@@ -64,11 +64,9 @@
         </div>
 
         <div class="mb-3">
-            <label asp-for="warm" class="form-label">Warme maaltijd?</label><br />
-            <input type="radio" asp-for="warm" value="true" /> Ja
-            <input type="radio" asp-for="warm" value="false" /> Nee
             @if (Model.KantineOndersteuntWarmeMaaltijden)
             {
+                <label asp-for="warm" class="form-label">Warme maaltijd?</label>
                 <input type="radio" asp-for="warm" value="true" /> <span>Ja</span>
                 <input type="radio" asp-for="warm" value="false" /> <span>Nee</span>
             }
