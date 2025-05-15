@@ -64,21 +64,22 @@
         </div>
 
         <div class="mb-3">
-            <label asp-for="warm" class="form-label">
-                <i class="fas fa-temperature-high"></i> Warme maaltijd?
-            </label>
-            <div class="radio-group">
-                <div class="radio-option">
-                    <input type="radio" asp-for="warm" value="true" id="warm-ja" checked>
-                    <label for="warm-ja">Ja</label>
-                </div>
-                <div class="radio-option">
-                    <input type="radio" asp-for="warm" value="false" id="warm-nee">
-                    <label for="warm-nee">Nee</label>
-                </div>
-            </div>
-            <span asp-validation-for="warm" class="validation-message"></span>
+            <label asp-for="warm" class="form-label">Warme maaltijd?</label><br />
+            <input type="radio" asp-for="warm" value="true" /> Ja
+            <input type="radio" asp-for="warm" value="false" /> Nee
+            @if (Model.KantineOndersteuntWarmeMaaltijden)
+            {
+                <input type="radio" asp-for="warm" value="true" /> <span>Ja</span>
+                <input type="radio" asp-for="warm" value="false" /> <span>Nee</span>
+            }
+            else
+            {
+                <input type="hidden" asp-for="warm" value="false" />
+                <span>Nee (deze kantine ondersteunt geen warme maaltijden)</span>
+            }
+            <span asp-validation-for="warm" class="text-danger"></span>
         </div>
+
 
         <div class="mb-3">
             <label class="form-label">

@@ -23,5 +23,7 @@ namespace FoodWasteApp.Models
         public Maaltijd maaltijd { get; set; }
         public Student? reserveerder { get; set; }
         public bool warm { get; set; } = false;
+        public bool KantineOndersteuntWarmeMaaltijden { get; set; }
+
     }
 }

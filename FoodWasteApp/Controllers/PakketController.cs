@@ -217,17 +217,29 @@ namespace FoodWasteApp.Controllers
         [Authorize(Roles = "Medewerker")]
         public IActionResult AddPakket()
         {
+            var medewerker = _medewerkerRepo.GetMedewerkerByEmail(User.Identity.Name);
+            var kantineIdMedewerker = medewerker.kantineId;
+            var kantineMedewerker = _kantineRepo.GetKantineById(kantineIdMedewerker);
+            var kantineOndersteuntWarmeMaaltijden = kantineMedewerker.warm;
+
             var kantines = _kantineRepo.GetKantines();
             ViewBag.Kantines = kantines;
             var producten = _productRepo.GetProducten();
+
             var addPakketViewModel = new AddPakketViewModel
             {
                 producten = producten.ToList(),
                 pickup = DateTime.Now.Date.AddHours(DateTime.Now.Hour).AddMinutes(DateTime.Now.Minute),
-                pickUpMax = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0)
+                pickUpMax = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0),
+                warm = kantineOndersteuntWarmeMaaltijden ? false : false,
+                KantineOndersteuntWarmeMaaltijden = kantineOndersteuntWarmeMaaltijden
             };
+
             return View(addPakketViewModel);
         }
+
+
+
         [HttpPost]
         [Authorize(Roles = "Medewerker")]
         public IActionResult AddPakket(AddPakketViewModel addPakketViewModel, List<int>? selectedProducten)
@@ -243,13 +255,11 @@ namespace FoodWasteApp.Controllers
                     : new List<Product>();
 
                 bool isVolwassen = selectedProductenList.Any(p => p.alcohol);
-
                 var kantine = medewerker.kantine;
-
                 var currentTime = DateTime.Now;
                 var timeDifference = addPakketViewModel.pickup - currentTime;
 
-                // Voeg handmatig foutmeldingen toe voor ontbrekende velden
+                // Validatie
                 if (string.IsNullOrWhiteSpace(addPakketViewModel.titel))
                 {
                     ModelState.AddModelError("titel", "Titel is verplicht");
@@ -271,7 +281,6 @@ namespace FoodWasteApp.Controllers
                     ModelState.AddModelError("producten", "Selecteer minimaal één product");
                 }
 
-                // Voeg datetime-validatie toe
                 if (addPakketViewModel.pickup != null && addPakketViewModel.pickup < currentTime)
                 {
                     ModelState.AddModelError("pickup", "Ophaaltijd moet in de toekomst liggen");
@@ -281,14 +290,13 @@ namespace FoodWasteApp.Controllers
                     ModelState.AddModelError("pickUpMax", "PickupMax moet later zijn dan ophaaltijd");
                 }
 
-                if (ModelState.IsValid) // Voeg deze controle toe om de verdere verwerking alleen uit te voeren als de model staat geldig is
+                if (ModelState.IsValid)
                 {
                     if (timeDifference.TotalHours < 48 && addPakketViewModel.pickup >= currentTime)
                     {
-                        // Controleer of kantine.warm overeenkomt met addPakketViewModel.warm
-                        if (kantine.warm == addPakketViewModel.warm)
+                        // ✅ Alleen foutmelding als maaltijd warm is, maar kantine GEEN warme maaltijden ondersteunt
+                        if (!addPakketViewModel.warm || (addPakketViewModel.warm && kantine.warm))
                         {
-                            // Voeg het pakket toe
                             var pakket = new Pakket
                             {
                                 titel = addPakketViewModel.titel,
@@ -302,6 +310,7 @@ namespace FoodWasteApp.Controllers
                                 producten = selectedProductenList,
                                 warm = addPakketViewModel.warm
                             };
+
                             if (pakket.pickUpMax > pakket.pickup)
                             {
                                 _pakketRepo.AddPakket(pakket);
@@ -323,7 +332,7 @@ namespace FoodWasteApp.Controllers
                     }
                 }
 
-                // Als er fouten zijn, laad de view opnieuw met het model
+                // Bij fout: laad opnieuw
                 var kantines = _kantineRepo.GetKantines();
                 addPakketViewModel.producten = producten.ToList();
                 ViewBag.Kantines = kantines;
@@ -337,7 +346,6 @@ namespace FoodWasteApp.Controllers
                 return View(addPakketViewModel);
             }
         }
-
 
 
         [HttpPost]
