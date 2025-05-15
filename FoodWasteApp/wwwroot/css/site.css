@@ -61,7 +61,7 @@ footer {
 }
 
 .footer a {
-    color: #306100 !important;
+    color: #2e7d32 !important;
 }
 
 body {
@@ -122,9 +122,16 @@ a {
 }
 
     .nav-link-custom:hover, .nav-link-custom:focus {
-        color: #80d784 !important;
         background-color: rgba(128, 215, 132, 0.2) !important;
     }
+    .nav-link-custom.active {
+        font-weight: bold;
+        color: #2e7d32 !important;
+        background-color: #e8f5e9;
+        border-radius: 5px;
+    }
+
+
 
 .btn-logout-custom {
     background-color: #dc4a4a !important; /* Lichtrood */
@@ -138,7 +145,7 @@ a {
 }
 
     .btn-logout-custom:hover {
-        background-color: #e27d60 !important; /* Donkerder rood/oranje */
+        background-color: #ba0909 !important; /* Donkerder rood/oranje */
     }
 
 .navbar-brand img {
@@ -411,3 +418,289 @@ a {
     margin-bottom: 0.5rem;
 }
 
+.details-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.details-header {
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #8BC750;
+    padding-bottom: 1rem;
+}
+
+.details-title {
+    color: #2e7d32;
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.pakket-name {
+    color: #2e7d32;
+    font-size: 1.5rem;
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.details-content {
+    display: grid;
+    gap: 2rem;
+}
+
+.details-section {
+    background-color: #f9f9f9;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 4px solid #8BC750;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+    .detail-item:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+.detail-icon {
+    color: #2e7d32;
+    font-size: 1.2rem;
+    width: 30px;
+    text-align: center;
+}
+
+.detail-label {
+    font-weight: bold;
+    color: #2e7d32;
+    margin-right: 0.5rem;
+}
+
+.detail-value {
+    color: #333;
+}
+
+.producten-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.75rem;
+}
+
+.product-item {
+    padding: 0.5rem;
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+    .product-item i {
+        font-size: 0.5rem;
+        color: #8BC750;
+    }
+
+.details-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    gap: 1rem;
+}
+
+.btn-back {
+    background-color: #f5f0e6;
+    color: #2e7d32;
+    border: 1px solid #2e7d32;
+}
+
+.btn-reserve {
+    background-color: #2e7d32;
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .details-actions {
+        flex-direction: column;
+    }
+
+    .producten-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* OVERZICHT */
+.pakketten-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+    padding: 20px;
+}
+
+.pakket-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #e0e0e0;
+}
+
+    .pakket-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+    }
+
+.card-header {
+    background-color: #2e7d32;
+    color: white;
+    padding: 15px;
+    position: relative;
+}
+
+    .card-header h3 {
+        margin: 0;
+        font-size: 1.4rem;
+        font-weight: 600;
+    }
+
+.card-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: red;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-detail {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+}
+
+    .card-detail i {
+        width: 24px;
+        color: #2e7d32;
+        margin-right: 10px;
+        text-align: center;
+    }
+
+.card-price {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #2e7d32;
+    margin: 15px 0;
+    text-align: center;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 20px;
+    background-color: #f9f9f9;
+    border-top: 1px solid #eee;
+}
+
+.btn-card {
+    padding: 8px 15px;
+    border-radius: 6px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 100px;
+}
+
+    .btn-card i {
+        margin-right: 6px;
+    }
+
+.section-title {
+    color: #2e7d32;
+    font-size: 1.8rem;
+    margin: 30px 20px 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #2e7d32;
+    display: flex;
+    align-items: center;
+}
+
+    .section-title i {
+        margin-right: 10px;
+    }
+
+.no-pakketten {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+    .no-pakketten i {
+        font-size: 3rem;
+        color: #2e7d32;
+        margin-bottom: 15px;
+    }
+
+    .no-pakketten h3 {
+        color: #de5f53;
+        margin-bottom: 10px;
+    }
+
+.alert-custom {
+    grid-column: 1 / -1;
+}
+
+.btn-back {
+    background-color: #2e7d32 !important; /* Zelfde groen als add button */
+    color: white !important;
+    border: none !important;
+    padding: 0.6rem 1.5rem;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 1rem;
+    width: 100%;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    text-align: center;
+}
+
+    .btn-back:hover {
+        background-color: #1e5e22 !important; /* Donkerder groen bij hover */
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        color: white !important;
+    }
+
+    .btn-back:active {
+        transform: translateY(0);
+    }

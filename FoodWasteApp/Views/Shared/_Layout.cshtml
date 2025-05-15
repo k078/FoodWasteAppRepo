@@ -28,12 +28,14 @@
                         @if (User.IsInRole("Student") || User.IsInRole("Medewerker"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link nav-link-custom" asp-controller="Pakket" asp-action="Overzicht">
+                                <a class="nav-link nav-link-custom @(ViewContext.RouteData.Values["controller"]?.ToString() == "Pakket" && ViewContext.RouteData.Values["action"]?.ToString() == "Overzicht" ? "active" : "")"
+                                   asp-controller="Pakket" asp-action="Overzicht">
                                     <i class="fas fa-clipboard-list me-2"></i>Overzicht
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link nav-link-custom" asp-controller="Pakket" asp-action="GereserveerdOverzicht">
+                                <a class="nav-link nav-link-custom @(ViewContext.RouteData.Values["controller"]?.ToString() == "Pakket" && ViewContext.RouteData.Values["action"]?.ToString() == "GereserveerdOverzicht" ? "active" : "")"
+                                   asp-controller="Pakket" asp-action="GereserveerdOverzicht">
                                     <i class="fas fa-calendar-check me-2"></i>Gereserveerd
                                 </a>
                             </li>
@@ -41,7 +43,8 @@
                         @if (User.IsInRole("Medewerker"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link nav-link-custom" asp-controller="Pakket" asp-action="AddPakket">
+                                <a class="nav-link nav-link-custom @(ViewContext.RouteData.Values["controller"]?.ToString() == "Pakket" && ViewContext.RouteData.Values["action"]?.ToString() == "AddPakket" ? "active" : "")"
+                                   asp-controller="Pakket" asp-action="AddPakket">
                                     <i class="fas fa-plus-circle me-2"></i>Toevoegen
                                 </a>
                             </li>
@@ -77,7 +80,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            <a>&copy; 2023 - FoodWasteApp</a>
+            <a>&copy; 2025 - FoodWasteApp</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

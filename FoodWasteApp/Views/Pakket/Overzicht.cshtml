@@ -2,227 +2,200 @@
 @model OverzichtViewModel
 
 @{
-    ViewData["Title"] = "Overzicht";
+    ViewData["Title"] = "Maaltijdpakketten";
 }
 
 <!DOCTYPE html>
 <html>
 <head>
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 
 <body>
-    <div class="text-center">
-        <h1>@ViewData["Title"]</h1>
+    <div class="container">
+        <h1 class="text-center mb-4"><i class="fas fa-utensils"></i> @ViewData["Title"]</h1>
+
         @if (User.IsInRole("Student"))
         {
             @if (!string.IsNullOrEmpty(ViewBag.CustomError as string))
             {
-                <div class="alert alert-danger text-center">
+                <div class="alert alert-danger alert-custom text-center">
                     @ViewBag.CustomError
                 </div>
             }
-                    @if (!Model.lijst3.Any())
-        {
-            <p class="alert">Geen beschikbare maaltijden!</p>
-        }
-        else{
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Naam</th>
-                        <th>Prijs</th>
-                        <th>Stad</th>
-                        <th>Kantine</th>
-                        <th>Ophaaltijd</th>
-                        <th>18+</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
+            <div class="pakketten-grid">
+                @if (!Model.lijst3.Any())
+                {
+                    <div class="no-pakketten">
+                        <i class="fas fa-info-circle"></i>
+                        <h3>Geen beschikbare maaltijden</h3>
+                        <p>Er zijn momenteel geen maaltijdpakketten beschikbaar.</p>
+                    </div>
+                }
+                else
+                {
                     @foreach (var pakket in Model.lijst3)
                     {
-                        <tr>
-                            <td>@pakket.titel</td>
-                            <td>@pakket.prijs.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("nl-NL"))</td>
-                            <td>@pakket.stad</td>
-                            <td>
-                                @if (pakket.kantine != null)
+                        <div class="pakket-card">
+                            <div class="card-header">
+                                <h3>@pakket.titel</h3>
+                                @if (pakket.volwassen)
                                 {
-                                    @pakket.kantine.naam
+                                    <span class="card-badge">18+</span>
                                 }
-                            </td>
-                            <td>@pakket.pickup.ToString("yyyy-MM-dd HH:mm")</td>
-                            @if (pakket.volwassen == true)
-                                {
-                                <td>Waar</td>
-                            }
-                            else
-                            {
-                            <td>Niet waar</td>
-                            }
-                            <td>
-                                <a asp-controller="Pakket" asp-action="PakketDetails" asp-route-pakketId="@pakket.Id" class="btn btn-info" title="Infogaina van pakket">
-                                    <i class="fas fa-info"></i> Info</a>
-                            </td>
-                            <td>
-                                <form method="post" asp-controller="Pakket" asp-action="ReserveerPakket" asp-route-pakketId="@pakket.Id" asp-route-studentId="@ViewBag.StudentId">
-                                    <button type="submit" class="btn btn-update" title="Reserveer een pakket">
-                                         <i class="fas fa-plus"></i>Reserveer</button>
+                            </div>
+                            <div class="card-body">
+                                <div class="card-price">
+                                    @pakket.prijs.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("nl-NL"))
+                                </div>
+                                <div class="card-detail">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>@pakket.stad - @(pakket.kantine?.naam ?? "Onbekende locatie")</span>
+                                </div>
+                                <div class="card-detail">
+                                    <i class="fas fa-clock"></i>
+                                    <span>@pakket.pickup.ToString("dd-MM-yyyy HH:mm")</span>
+                                </div>
+                                <div class="card-detail">
+                                    <i class="fas fa-@(pakket.warm ? "fire" : "snowflake")"></i>
+                                    <span>@(pakket.warm ? "Warme maaltijd" : "Koude maaltijd")</span>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <a asp-controller="Pakket" asp-action="PakketDetails" asp-route-pakketId="@pakket.Id"
+                                   class="btn-card btn-info" title="Meer informatie">
+                                    <i class="fas fa-info-circle"></i> Details
+                                </a>
+                                <form method="post" asp-controller="Pakket" asp-action="ReserveerPakket"
+                                      asp-route-pakketId="@pakket.Id" asp-route-studentId="@ViewBag.StudentId">
+                                    <button type="submit" class="btn-card btn-update" title="Reserveer dit pakket">
+                                        <i class="fas fa-cart-plus"></i> Reserveer
+                                    </button>
                                 </form>
-                            </td>
-                        </tr>
+                            </div>
+                        </div>
                     }
-                </tbody>
-            </table>
+                }
+            </div>
         }
-        }
+
         @if (User.IsInRole("Medewerker"))
         {
-        @if (!Model.lijst1.Any())
-        {
-            <p class="alert">Geen beschikbare maaltijden!</p>
-        }
-        else{
+            <h2 class="section-title"><i class="fas fa-store"></i> Mijn kantine</h2>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Naam</th>
-                        <th>Prijs</th>
-                        <th>Stad</th>
-                        <th>Kantine</th>
-                        <th>Ophaaltijd</th>
-                        <th>18+</th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
+            <div class="pakketten-grid">
+                @if (!Model.lijst1.Any())
+                {
+                    <div class="no-pakketten">
+                        <i class="fas fa-info-circle"></i>
+                        <h3>Geen maaltijden in uw kantine</h3>
+                        <p>U heeft nog geen maaltijdpakketten toegevoegd voor uw kantine.</p>
+                    </div>
+                }
+                else
+                {
                     @foreach (var pakket in Model.lijst1)
                     {
-                        <tr>
-                            <td>@pakket.titel</td>
-                            <td>@pakket.prijs.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("nl-NL"))</td>
-                            <td>@pakket.stad</td>
-                            <td>
-                                @if (pakket.kantine != null)
+                        <div class="pakket-card">
+                            <div class="card-header">
+                                <h3>@pakket.titel</h3>
+                                @if (pakket.volwassen)
                                 {
-                                    @pakket.kantine.naam
+                                    <span class="card-badge">18+</span>
                                 }
-                            </td>
-                            <td>@pakket.pickup.ToString("yyyy-MM-dd HH:mm")</td>
-                            @if (pakket.volwassen == true)
-                            {
-                                <td>Waar</td>
-                            }
-                            else
-                            {
-                                <td>Niet waar</td>
-                            }
-                            <td>
-                                <a asp-controller="Pakket" asp-action="PakketDetails" asp-route-pakketId="@pakket.Id" class="btn btn-info" title="Infopagina van pakket">
-                                    <i class="fas fa-info"></i> Info
+                            </div>
+                            <div class="card-body">
+                                <div class="card-price">
+                                    @pakket.prijs.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("nl-NL"))
+                                </div>
+                                <div class="card-detail">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>@pakket.stad - @(pakket.kantine?.naam ?? "Onbekende locatie")</span>
+                                </div>
+                                <div class="card-detail">
+                                    <i class="fas fa-clock"></i>
+                                    <span>@pakket.pickup.ToString("dd-MM-yyyy HH:mm")</span>
+                                </div>
+                                <div class="card-detail">
+                                    <i class="fas fa-@(pakket.warm ? "fire" : "snowflake")"></i>
+                                    <span>@(pakket.warm ? "Warme maaltijd" : "Koude maaltijd")</span>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <a asp-controller="Pakket" asp-action="PakketDetails" asp-route-pakketId="@pakket.Id"
+                                   class="btn-card btn-info" title="Meer informatie">
+                                    <i class="fas fa-info-circle"></i> Details
                                 </a>
-                            </td>
-
-                            <td>
-                                <a asp-controller="Pakket" asp-action="UpdatePakket" asp-route-id="@pakket.Id" class="btn btn-update" title="Pakket bijwerken">
-                                    <i class="fas fa-edit"></i> Update
+                                <a asp-controller="Pakket" asp-action="UpdatePakket" asp-route-id="@pakket.Id"
+                                   class="btn-card btn-update" title="Bewerk dit pakket">
+                                    <i class="fas fa-edit"></i> Bewerk
                                 </a>
-                            </td>
-
-                            <td>
-                                <form method="post" action="@Url.Action("DeletePakket", "Pakket", new { Id = pakket.Id })">
+                                <form method="post" action="@Url.Action("DeletePakket", "Pakket", new { Id = pakket.Id })"
+                                      onsubmit="return confirm('Weet je zeker dat je dit pakket wilt verwijderen?');">
                                     @Html.Hidden("Id", pakket.Id)
-                                    <button type="submit" class="btn btn-danger" title="Pakket verwijderen" data-confirm="Weet je zeker dat je dit pakket wilt verwijderen?">
+                                    <button type="submit" class="btn-card btn-danger" title="Verwijder dit pakket">
                                         <i class="fas fa-trash-alt"></i> Verwijder
                                     </button>
                                 </form>
-                            </td>
-                        </tr>
+                            </div>
+                        </div>
                     }
-                </tbody>
+                }
+            </div>
 
-            </table>
-        }
-            <hr />
-            <h1>Overige kantines</h1>
-            @if(!Model.lijst2.Any())
-            {
-                <p class="alert">Geen beschikbare maaltijden!</p>
-            }
-            else{
+            <h2 class="section-title"><i class="fas fa-utensils"></i> Overige kantines</h2>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Naam</th>
-                        <th>Prijs</th>
-                        <th>Stad</th>
-                        <th>Kantine</th>
-                        <th>Ophaaltijd</th>
-                        <th>18+</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
+            <div class="pakketten-grid">
+                @if (!Model.lijst2.Any())
+                {
+                    <div class="no-pakketten">
+                        <i class="fas fa-info-circle"></i>
+                        <h3>Geen maaltijden beschikbaar</h3>
+                        <p>Er zijn momenteel geen maaltijdpakketten beschikbaar in andere kantines.</p>
+                    </div>
+                }
+                else
+                {
                     @foreach (var pakket in Model.lijst2)
                     {
-                        <tr>
-                            <td>@pakket.titel</td>
-                            <td>@pakket.prijs.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("nl-NL"))</td>
-                            <td>@pakket.stad</td>
-                            <td>
-                                @if (pakket.kantine != null)
+                        <div class="pakket-card">
+                            <div class="card-header">
+                                <h3>@pakket.titel</h3>
+                                @if (pakket.volwassen)
                                 {
-                                    @pakket.kantine.naam
+                                    <span class="card-badge">18+</span>
                                 }
-                            </td>
-                            <td>@pakket.pickup.ToString("yyyy-MM-dd HH:mm")</td>
-                            @if (pakket.volwassen == true)
-                            {
-                                <td>Waar</td>
-                            }
-                            else
-                            {
-                                <td>Niet waar</td>
-                            }
-                            <td>
-                                <a asp-controller="Pakket" asp-action="PakketDetails" asp-route-pakketId="@pakket.Id" class="btn btn-primary" title="Infopagina van pakket">
-                                    Info
+                            </div>
+                            <div class="card-body">
+                                <div class="card-price">
+                                    @pakket.prijs.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("nl-NL"))
+                                </div>
+                                <div class="card-detail">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>@pakket.stad - @(pakket.kantine?.naam ?? "Onbekende locatie")</span>
+                                </div>
+                                <div class="card-detail">
+                                    <i class="fas fa-clock"></i>
+                                    <span>@pakket.pickup.ToString("dd-MM-yyyy HH:mm")</span>
+                                </div>
+                                <div class="card-detail">
+                                    <i class="fas fa-@(pakket.warm ? "fire" : "snowflake")"></i>
+                                    <span>@(pakket.warm ? "Warme maaltijd" : "Koude maaltijd")</span>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <a asp-controller="Pakket" asp-action="PakketDetails" asp-route-pakketId="@pakket.Id"
+                                   class="btn-card btn-info" title="Meer informatie">
+                                    <i class="fas fa-info-circle"></i> Details
                                 </a>
-                            </td>
-                        </tr>
+                            </div>
+                        </div>
                     }
-                </tbody>
-            </table>
-            }
+                }
+            </div>
         }
     </div>
-    <script>
-document.addEventListener("DOMContentLoaded", function () {
-    var deleteButtons = document.querySelectorAll("button[data-confirm]");
-    deleteButtons.forEach(function (button) {
-        button.addEventListener("click", function (event) {
-            console.log("Button clicked");
-
-            var confirmationMessage = button.getAttribute("data-confirm");
-            console.log("Confirmation message:", confirmationMessage);
-
-            if (!confirm(confirmationMessage)) {
-                // Gebruiker heeft geannuleerd, voorkom verdere actie
-                event.preventDefault();
-                console.log("Delete action canceled by user.");
-            } else {
-                console.log("Delete action confirmed by user.");
-            }
-        });
-    });
-});
-    </script>
 </body>
 </html>

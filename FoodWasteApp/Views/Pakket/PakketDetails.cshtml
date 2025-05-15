@@ -1,23 +1,93 @@
 ﻿@model PakketDetailsViewModel
-
-
 @{
     ViewData["Title"] = "Pakket details";
 }
-<h1>Pakket Details</h1>
 
-<h2>@Model.pakket.titel</h2>
-<p>Ophaaltijd: @Model.pakket.pickup.ToString("dd-MM-yyyy HH:mm")</p>
-<p>Maximale ophaaltijd: @Model.pakket.pickUpMax.ToString("dd-MM-yyyy HH:mm")</p>
-<p>Prijs: @Model.pakket.prijs</p>
-<p>Maaltijd: @Model.pakket.maaltijd</p>
-<p>18+: @(Model.pakket.volwassen ? "waar" : "niet waar")</p>
-<p>Warme maaltijd: @(Model.pakket.warm ? "waar" : "niet waar")</p>
+<div class="details-container">
+    <div class="details-header">
+        <h1 class="details-title">
+             Pakket Details
+        </h1>
+        <h2 class="pakket-name">
+            <i class="fas fa-utensils"></i> @Model.pakket.titel
+        </h2>
+    </div>
 
-<h2>Producten</h2>
-<ul>
-        @foreach (var product in Model.producten)
-    {
-        <li>@product.naam</li>
-    }
-</ul>
+    <div class="details-content">
+        <div class="details-section">
+            <h3 class="section-title">
+                <i class="fas fa-info-circle"></i> Basis informatie
+            </h3>
+            <div class="detail-item">
+                <span class="detail-icon"><i class="fas fa-clock"></i></span>
+                <div>
+                    <span class="detail-label">Ophaaltijd:</span>
+                    <span class="detail-value">@Model.pakket.pickup.ToString("dd-MM-yyyy HH:mm")</span>
+                </div>
+            </div>
+            <div class="detail-item">
+                <span class="detail-icon"><i class="fas fa-clock"></i></span>
+                <div>
+                    <span class="detail-label">Maximale ophaaltijd:</span>
+                    <span class="detail-value">@Model.pakket.pickUpMax.ToString("dd-MM-yyyy HH:mm")</span>
+                </div>
+            </div>
+            <div class="detail-item">
+                <span class="detail-icon"><i class="fas fa-euro-sign"></i></span>
+                <div>
+                    <span class="detail-label">Prijs:</span>
+                    <span class="detail-value">€@Model.pakket.prijs.ToString("0.00")</span>
+                </div>
+            </div>
+            <div class="detail-item">
+                <span class="detail-icon"><i class="fas fa-utensil-spoon"></i></span>
+                <div>
+                    <span class="detail-label">Maaltijd:</span>
+                    <span class="detail-value">@Model.pakket.maaltijd</span>
+                </div>
+            </div>
+            <div class="detail-item">
+                <span class="detail-icon"><i class="fas fa-user-shield"></i></span>
+                <div>
+                    <span class="detail-label">18+:</span>
+                    <span class="detail-value">@(Model.pakket.volwassen ? "Ja" : "Nee")</span>
+                </div>
+            </div>
+            <div class="detail-item">
+                <span class="detail-icon"><i class="fas fa-temperature-high"></i></span>
+                <div>
+                    <span class="detail-label">Warme maaltijd:</span>
+                    <span class="detail-value">@(Model.pakket.warm ? "Ja" : "Nee")</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="details-section">
+            <h3 class="section-title">
+                <i class="fas fa-shopping-basket"></i> Producten
+            </h3>
+            <div class="producten-grid">
+                @foreach (var product in Model.producten)
+                {
+                    <div class="product-item">
+                        <i class="fas fa-circle"></i> @product.naam
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="details-actions">
+        <a href="@Url.Action("Overzicht", "Pakket")" class="btn btn-back">
+            <i class="fas fa-arrow-left"></i> Terug naar overzicht
+        </a>
+        @if (User.IsInRole("Student"))
+        {
+            <form method="post" action="@Url.Action("Reserveer", "Pakket", new { id = Model.pakket.Id })">
+                <button type="submit" class="btn btn-reserve">
+                    <i class="fas fa-calendar-check"></i> Reserveer nu
+                </button>
+            </form>
+        }
+    </div>
+</div>
