@@ -217,10 +217,27 @@
                                 </div>
                             </div>
                             <div class="card-footer">
+                                <!-- Info button -->
                                 <a asp-controller="Pakket" asp-action="PakketDetails" asp-route-pakketId="@pakket.Id"
                                    class="btn-card btn-info" title="Meer informatie">
                                     <i class="fas fa-info-circle"></i> Details
                                 </a>
+
+                                <!-- Bewerk button -->
+                                <a asp-controller="Pakket" asp-action="UpdatePakket" asp-route-id="@pakket.Id"
+                                   class="btn-card btn-update" title="Bewerk dit pakket">
+                                    <i class="fas fa-edit"></i> Bewerk
+                                </a>
+
+                                <!-- Verwijder button -->
+                                <form method="post" action="@Url.Action("DeletePakket", "Pakket", new { Id = pakket.Id })"
+                                      onsubmit="return confirm('Weet je zeker dat je dit pakket wilt verwijderen?');"
+                                      class="d-flex flex-grow-1">
+                                    @Html.Hidden("Id", pakket.Id)
+                                    <button type="submit" class="btn-card btn-danger flex-grow-1" title="Verwijder dit pakket">
+                                        <i class="fas fa-trash-alt"></i> Verwijder
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     }

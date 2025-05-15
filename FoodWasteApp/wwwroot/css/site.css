@@ -124,6 +124,7 @@ a {
     .nav-link-custom:hover, .nav-link-custom:focus {
         background-color: rgba(128, 215, 132, 0.2) !important;
     }
+
     .nav-link-custom.active {
         font-weight: bold;
         color: #2e7d32 !important;
@@ -156,11 +157,11 @@ a {
     transform: scale(1.05);
 }
 
-.navbar-nav{
+.navbar-nav {
     justify-content: center;
 }
 
-.nav-item{
+.nav-item {
     padding-left: 8px;
     padding-right: 8px;
 }
@@ -210,52 +211,59 @@ a {
         color: black;
         border-color: black !important;
     }
-.btn-danger {
-    background-color: #f1bcbc !important;
-    color: black;
-    border-color: black !important;
+
+/* Verwijder button - Rood */
+.btn-card.btn-danger {
+    background-color: #dc4a4a !important;
 }
 
-    .btn-danger:hover {
-        background-color: #ff7a7a !important;
-        color: black;
-        border-color: black !important;
+    .btn-card.btn-danger:hover {
+        background-color: #c23a3a !important;
+        transform: translateY(-2px);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
 
-.btn-update {
-    background-color: #89b2ff !important;
-    color: black;
-    border-color: black !important;
+/* Bewerk button - Geel/oranje */
+.btn-card.btn-update {
+    background-color: #ffb347 !important;
+    justify-content:center !important;
 }
-    .btn-update:hover {
-        background-color: #4e8cff !important;
-        color: black;
-        border-color: black !important;
+
+    .btn-card.btn-update:hover {
+        background-color: #e69a3e !important;
+        transform: translateY(-2px);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
-.btn-info {
-    background-color: ghostwhite !important;
-    color: black;
-    border-color: black !important;
+
+/* Details button - Bruin */
+.btn-card.btn-info {
+    background-color: #8b5e3c !important;
+    font-weight: 200px;
 }
-.btn-info:hover {
-    background-color: #dedede !important;
-    color: black;
-    border-color: black !important;
-}
+
+    .btn-card.btn-info:hover {
+        background-color: #6d4a2f !important;
+        transform: translateY(-2px);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
 .btn-logout {
     background-color: #f1bcbc !important;
     border-color: black !important;
     color: black !important;
 }
-.btn-logout:hover {
-    background-color: #808080 !important;
-    color: black;
-    border-color: black !important;
-}
+
+    .btn-logout:hover {
+        background-color: #808080 !important;
+        color: black;
+        border-color: black !important;
+    }
+
 .btn i.fas {
     margin-right: 5px; /* Ruimte tussen het icoon en de tekst aanpassen */
     font-size: 20px; /* Grootte van het icoon aanpassen */
 }
+
 .custom-icon {
     font-size: 1.5em; /* Verander deze waarde om de grootte aan te passen */
 }
@@ -528,10 +536,16 @@ a {
     border: 1px solid #2e7d32;
 }
 
-.btn-reserve {
-    background-color: #2e7d32;
-    color: white;
+/* Reserveer button - Groen (consistent met andere acties) */
+.btn-card.btn-reserve {
+    background-color: #2e7d32 !important;
 }
+
+    .btn-card.btn-reserve:hover {
+        background-color: #1e5e22 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
 
 @media (max-width: 768px) {
     .details-actions {
@@ -606,21 +620,33 @@ a {
 
 .card-footer {
     display: flex;
-    justify-content: space-between;
+    gap: 10px;
     padding: 15px 20px;
     background-color: #f9f9f9;
     border-top: 1px solid #eee;
+    align-items: center !important;
 }
 
 .btn-card {
-    padding: 8px 15px;
-    border-radius: 6px;
-    font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 100px;
+    padding: 0.6rem 1rem !important;
+    border-radius: 5px !important;
+    font-weight: 600 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 100px !important;
+    transition: all 0.3s ease !important;
+    border: none !important;
+    color: white !important;
+    flex: 1 !important;
+    text-decoration: none !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    height: 100% !important; /* Zorgt voor gelijke hoogte */
+    box-sizing: border-box !important; /* Zorgt dat padding meerekent in hoogte */
+    line-height: normal !important; /* Consistentie in tekstpositionering */
 }
+
 
     .btn-card i {
         margin-right: 6px;
@@ -698,13 +724,13 @@ a {
     top: 12px;
     right: 15px;
     display: flex;
-    gap: 8px; 
+    gap: 8px;
 }
 
 .card-badge,
 .card-datum-today,
 .card-datum-tomorrow {
-    position: static; 
+    position: static;
     padding: 5px 10px;
     border-radius: 20px;
     font-size: 1rem;
@@ -723,4 +749,86 @@ a {
 
 .card-datum-tomorrow {
     background-color: orange;
+}
+
+/* Update button styling - vergelijkbaar met add button */
+.btn-update {
+    background-color: #2e7d32 !important;
+    color: white !important;
+    border-color: #2e7d32 !important;
+    padding: 0.6rem 1.5rem;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 1rem;
+    width: 100%;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+    .btn-update:hover {
+        background-color: #1e5e22 !important;
+        border-color: #1e5e22 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .btn-update:active {
+        transform: translateY(0);
+    }
+
+/* Aanvullende radio button styling */
+.radio-group {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.radio-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+    .radio-option input[type="radio"] {
+        accent-color: #2e7d32;
+    }
+
+/* Gereserveerde pakketten specifieke styling */
+.reservering-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background-color: #f5f0e6;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+/* Aanpassingen voor annuleer knop */
+.btn-danger {
+    background-color: #f1bcbc !important;
+    color: white !important;
+    border: none !important;
+    transition: all 0.3s ease;
+}
+
+    .btn-danger:hover {
+        background-color: #e27d60 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+/* Responsive aanpassingen */
+@media (max-width: 768px) {
+    .card-footer {
+        flex-direction: column;
+    }
+
+    .btn-card {
+        width: 100%;
+        max-width: none;
+    }
 }
