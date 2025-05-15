@@ -41,11 +41,22 @@
                         <div class="pakket-card">
                             <div class="card-header">
                                 <h3>@pakket.titel</h3>
-                                @if (pakket.volwassen)
-                                {
-                                    <span class="card-badge">18+</span>
-                                }
+                                <div class="badges-container">
+                                    @if (pakket.pickup.Date == DateTime.Today)
+                                    {
+                                        <span class="card-datum-today">Vandaag</span>                                  
+                                    }
+                                    else if (pakket.pickup.Date == DateTime.Today.AddDays(1))
+                                    {
+                                        <span class="card-datum-tomorrow">Morgen</span>
+                                    }
+                                    @if (pakket.volwassen)
+                                    {
+                                        <span class="card-badge">18+</span>
+                                    }
+                                </div>
                             </div>
+
                             <div class="card-body">
                                 <div class="card-price">
                                     @pakket.prijs.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("nl-NL"))
@@ -100,12 +111,22 @@
                     {
                         <div class="pakket-card">
                             <div class="card-header">
-                                <h3>@pakket.titel</h3>
-                                @if (pakket.volwassen)
-                                {
-                                    <span class="card-badge">18+</span>
-                                }
-                            </div>
+    <h3>@pakket.titel</h3>
+    <div class="badges-container">
+        @if (pakket.pickup.Date == DateTime.Today)
+        {
+            <span class="card-datum-today">Vandaag</span>                                  
+        }
+        else if (pakket.pickup.Date == DateTime.Today.AddDays(1))
+        {
+            <span class="card-datum-tomorrow">Morgen</span>
+        }
+        @if (pakket.volwassen)
+        {
+            <span class="card-badge">18+</span>
+        }
+    </div>
+</div>
                             <div class="card-body">
                                 <div class="card-price">
                                     @pakket.prijs.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("nl-NL"))
@@ -162,12 +183,22 @@
                     {
                         <div class="pakket-card">
                             <div class="card-header">
-                                <h3>@pakket.titel</h3>
-                                @if (pakket.volwassen)
-                                {
-                                    <span class="card-badge">18+</span>
-                                }
-                            </div>
+    <h3>@pakket.titel</h3>
+    <div class="badges-container">
+        @if (pakket.pickup.Date == DateTime.Today)
+        {
+            <span class="card-datum-today">Vandaag</span>                                  
+        }
+        else if (pakket.pickup.Date == DateTime.Today.AddDays(1))
+        {
+            <span class="card-datum-tomorrow">Morgen</span>
+        }
+        @if (pakket.volwassen)
+        {
+            <span class="card-badge">18+</span>
+        }
+    </div>
+</div>
                             <div class="card-body">
                                 <div class="card-price">
                                     @pakket.prijs.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("nl-NL"))

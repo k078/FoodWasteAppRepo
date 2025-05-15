@@ -578,18 +578,6 @@ a {
         font-weight: 600;
     }
 
-.card-badge {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background-color: red;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 20px;
-    font-size: 1rem;
-    font-weight: bold;
-}
-
 .card-body {
     padding: 20px;
 }
@@ -704,3 +692,35 @@ a {
     .btn-back:active {
         transform: translateY(0);
     }
+
+.badges-container {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    display: flex;
+    gap: 8px; 
+}
+
+.card-badge,
+.card-datum-today,
+.card-datum-tomorrow {
+    position: static; 
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    white-space: nowrap;
+}
+
+.card-badge {
+    background-color: red;
+}
+
+.card-datum-today {
+    background-color: red;
+}
+
+.card-datum-tomorrow {
+    background-color: orange;
+}
