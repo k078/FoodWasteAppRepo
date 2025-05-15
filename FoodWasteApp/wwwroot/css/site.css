@@ -64,16 +64,8 @@ footer {
     color: #306100 !important;
 }
 
-.navbar {
-    background-color: white !important;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    font-size: large;
-}
-
 body {
-    background-color: #E6FFCC;
+    background-color: #F5F0E6;
 }
 
 a {
@@ -81,8 +73,111 @@ a {
     color: #306100;
 }
 
-.navbar a {
-    color: #306100 !important;
+
+
+.btn-nav-custom {
+    background-color: #2e7d32 !important; /* Groene achtergrond */
+    color: white !important;
+    border: none !important;
+}
+
+    .btn-nav-custom:hover {
+        background-color: #1e5e22 !important; /* Donkerder groen bij hover */
+    }
+
+.navbar-custom {
+    background-color: white !important;
+    border-bottom: 2px solid #2e7d32 !important;
+}
+
+.navbar-container {
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+
+.navbar-brand-container {
+    width: 150px; /* Gelijk aan logout container */
+    flex-shrink: 0;
+}
+
+.navbar-nav-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.navbar-logout-container {
+    width: 150px; /* Gelijk aan brand container */
+    flex-shrink: 0;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.nav-link-custom {
+    color: #2e7d32 !important;
+    font-weight: 700 !important; /* Bold */
+    font-size: 18px !important; /* Grotere tekst */
+    padding: 0.5rem 1rem !important;
+}
+
+    .nav-link-custom:hover, .nav-link-custom:focus {
+        color: #80d784 !important;
+        background-color: rgba(128, 215, 132, 0.2) !important;
+    }
+
+.btn-logout-custom {
+    background-color: #f1bcbc !important; /* Lichtrood */
+    color: black !important;
+    border: none !important;
+    font-weight: 700 !important; /* Bold */
+    font-size: 18px !important; /* Grotere tekst */
+    padding: 0.5rem 1rem !important;
+    width: 100%;
+    max-width: 150px;
+}
+
+    .btn-logout-custom:hover {
+        background-color: #e27d60 !important; /* Donkerder rood/oranje */
+    }
+
+.navbar-brand img {
+    transition: transform 0.3s;
+}
+
+.navbar-brand:hover img {
+    transform: scale(1.05);
+}
+
+.navbar-nav{
+    justify-content: center;
+}
+
+.nav-item{
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+@media (max-width: 991.98px) {
+    .navbar-container {
+        flex-direction: column;
+    }
+
+    .navbar-brand-container,
+    .navbar-logout-container {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .navbar-nav-container {
+        order: 2;
+        width: 100%;
+    }
+
+    .navbar-logout-container {
+        order: 3;
+        margin-top: 1rem;
+    }
 }
 
 .alert {
@@ -108,8 +203,8 @@ a {
         color: black;
         border-color: black !important;
     }
-.btn-danger{
-    background-color: #ff9c9c !important;
+.btn-danger {
+    background-color: #f1bcbc !important;
     color: black;
     border-color: black !important;
 }
@@ -141,7 +236,7 @@ a {
     border-color: black !important;
 }
 .btn-logout {
-    background-color: #ddd !important;
+    background-color: #f1bcbc !important;
     border-color: black !important;
     color: black !important;
 }
@@ -156,5 +251,163 @@ a {
 }
 .custom-icon {
     font-size: 1.5em; /* Verander deze waarde om de grootte aan te passen */
+}
+/* AddPakket Pagina Styling */
+.add-pakket-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.add-pakket-title {
+    color: #2e7d32;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.section-title {
+    color: #2e7d32;
+    font-size: 1.3rem;
+    margin: 1.5rem 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #8BC750;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.form-label {
+    font-weight: bold;
+    color: #2e7d32;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 0.5rem;
+    background-color: #f9f9f9;
+}
+
+    .form-control:focus {
+        border-color: #8BC750;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(139, 199, 80, 0.3);
+    }
+
+.datetime-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+@media (max-width: 768px) {
+    .datetime-inputs {
+        grid-template-columns: 1fr;
+    }
+}
+
+.radio-group {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.radio-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.checkbox-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+.form-check {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.form-check-input {
+    width: 1.2em;
+    height: 1.2em;
+    margin-top: 0;
+}
+
+.euro-symbol {
+    position: absolute;
+    left: 12px;
+    color: #306100;
+    font-weight: bold;
+    z-index: 2;
+    padding-bottom: 7px;
+    pointer-events: none;
+}
+
+
+.price-input-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+
+.price-input {
+    flex: 1;
+    padding-left: 30px !important;
+}
+
+.price-input-wrapper {
+    position: relative;
+}
+
+
+.btn-add {
+    background-color: #2e7d32 !important;
+    color: white !important;
+    border-color: #2e7d32 !important;
+    padding: 0.6rem 1.5rem;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 1rem;
+    width: 100%;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+    .btn-add:hover {
+        background-color: #1e5e22 !important;
+        border-color: #1e5e22 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .btn-add:active {
+        transform: translateY(0);
+    }
+
+.validation-message {
+    color: #d9534f;
+    font-size: 0.9rem;
+    margin-top: -0.5rem;
+    margin-bottom: 0.5rem;
 }
 
