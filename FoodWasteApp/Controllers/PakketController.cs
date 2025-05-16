@@ -37,31 +37,78 @@ namespace FoodWasteApp.Controllers
 
         [HttpGet]
         [Authorize]
-        public IActionResult Overzicht()
+        public IActionResult Overzicht(Stad? stad, Maaltijd? maaltijd, bool? volwassen, bool? warm, string datumFilter)
         {
             var viewModel = new OverzichtViewModel();
             var kantines = _kantineRepo.GetKantines();
             var students = _studentRepo.GetStudents();
             var currentTime = DateTime.Now;
+            var vandaag = DateTime.Today;
+            var morgen = vandaag.AddDays(1);
+
             _pakketRepo.VerwijderVerlopenPakketten(currentTime);
-            var pakketten = _pakketRepo.GetBeschikbarePakketten().OrderBy(p => p.pickup).ToList();
-            
+
+            var pakkettenQuery = _pakketRepo.GetBeschikbarePakketten();
+
+            // Bestaande filters
+            if (stad.HasValue)
+            {
+                pakkettenQuery = pakkettenQuery.Where(p => p.stad == stad.Value);
+            }
+
+            if (maaltijd.HasValue)
+            {
+                pakkettenQuery = pakkettenQuery.Where(p => p.maaltijd == maaltijd.Value);
+            }
+
+            if (volwassen.HasValue)
+            {
+                pakkettenQuery = pakkettenQuery.Where(p => p.volwassen == volwassen.Value);
+            }
+
+            if (warm.HasValue)
+            {
+                pakkettenQuery = pakkettenQuery.Where(p => p.warm == warm.Value);
+            }
+
+            if (!string.IsNullOrEmpty(datumFilter))
+            {
+                if (datumFilter == "vandaag")
+                {
+                    pakkettenQuery = pakkettenQuery.Where(p => p.pickup.Date == vandaag);
+                }
+                else if (datumFilter == "morgen")
+                {
+                    pakkettenQuery = pakkettenQuery.Where(p => p.pickup.Date == morgen);
+                }
+            }
+
+            var pakketten = pakkettenQuery.OrderBy(p => p.pickup).ToList();
+
+            // Vul ViewBag met alle filteropties
+            ViewBag.Steden = pakketten.Select(p => p.stad).Distinct().OrderBy(s => s);
+            ViewBag.SelectedStad = stad;
+            ViewBag.SelectedMaaltijd = maaltijd;
+            ViewBag.SelectedVolwassen = volwassen;
+            ViewBag.SelectedWarm = warm;
+            ViewBag.SelectedDatumFilter = datumFilter;
+
             if (User.IsInRole("Student"))
             {
-                var user = User.Identity.Name;
                 var studentId = _studentRepo.GetStudentByEmail(User.Identity.Name).Id;
                 ViewBag.StudentId = studentId;
-                viewModel.lijst3 =  pakketten;
+                viewModel.lijst3 = pakketten;
             }
             else if (User.IsInRole("Medewerker"))
             {
                 var medewerker = _medewerkerRepo.GetMedewerkerByEmail(User.Identity.Name);
                 var kantine = medewerker.kantine;
-                var pakkettenKantine = _pakketRepo.GetBeschikbarePakketten().Where(p => p.kantine == kantine).OrderBy(p => p.pickup).ToList();
-                var restPakketten = _pakketRepo.GetBeschikbarePakketten().Where(p => p.kantine != kantine).OrderBy(p => p.pickup).ToList();
-                viewModel = new OverzichtViewModel { lijst1 = pakkettenKantine, lijst2 = restPakketten};
-                var medewerkerId = _medewerkerRepo.GetMedewerkerByEmail(User.Identity.Name).Id;
-                ViewBag.MedewerkerId = medewerkerId;
+
+                var pakkettenKantine = pakketten.Where(p => p.kantine == kantine).ToList();
+                var restPakketten = pakketten.Where(p => p.kantine != kantine).ToList();
+
+                viewModel = new OverzichtViewModel { lijst1 = pakkettenKantine, lijst2 = restPakketten };
+                ViewBag.MedewerkerId = medewerker.Id;
                 return View(viewModel);
             }
 
@@ -69,6 +116,8 @@ namespace FoodWasteApp.Controllers
             ViewBag.Kantines = kantines;
             return View(viewModel);
         }
+
+
 
         [HttpGet]
         [Authorize(Roles = "Student, Medewerker")]
@@ -114,7 +163,7 @@ namespace FoodWasteApp.Controllers
         [Authorize(Roles = "Student")]
         public IActionResult PakketDetails(int pakketId)
         {
-            var pakket = _pakketRepo.GetPakketById(pakketId);
+             var pakket = _pakketRepo.GetPakketById(pakketId);
             if (pakket == null)
             {
                 return NotFound();

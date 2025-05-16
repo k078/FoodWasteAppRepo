@@ -16,6 +16,78 @@
     <div class="container">
         <h1 class="text-center mb-4"><i class="fas fa-utensils"></i> @ViewData["Title"]</h1>
 
+  <!-- Filter sectie -->
+<div class="filter-section mb-4">
+    <form method="get" asp-action="Overzicht" class="filter-form">
+        <div class="filter-row">
+            <!-- Bestaande filters -->
+            <div class="filter-group">
+                <label for="stad">Stad:</label>
+                <select id="stad" name="stad" class="form-control">
+                    <option value="">Alle steden</option>
+                    @foreach (Stad stad in Enum.GetValues(typeof(Stad)))
+                    {
+                        <option value="@stad" selected="@(stad == ViewBag.SelectedStad)">@stad</option>
+                    }
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="maaltijd">Maaltijdtype:</label>
+                <select id="maaltijd" name="maaltijd" class="form-control">
+                    <option value="">Alle types</option>
+                    @foreach (Maaltijd maaltijd in Enum.GetValues(typeof(Maaltijd)))
+                    {
+                        <option value="@maaltijd" selected="@(maaltijd == ViewBag.SelectedMaaltijd)">@maaltijd</option>
+                    }
+                </select>
+            </div>
+            
+            <div class="filter-group">
+    <label for="volwassen">Leeftijdsfilter:</label>
+    <select id="volwassen" name="volwassen" class="form-control">
+        <option value="">Alle pakketten</option>
+        <option value="false" selected="@(ViewBag.SelectedVolwassen == false)">Zonder leeftijdsrestrictie</option>
+        <option value="true" selected="@(ViewBag.SelectedVolwassen == true)">18+ pakketten</option>
+    </select>
+</div>
+            
+            <!-- Nieuwe filters -->
+            <div class="filter-group">
+                <label for="warm">Soort maaltijd:</label>
+                <select id="warm" name="warm" class="form-control">
+                    <option value="">Alle</option>
+                    <option value="true" selected="@(ViewBag.SelectedWarm == true)">Warme maaltijd</option>
+                    <option value="false" selected="@(ViewBag.SelectedWarm == false)">Koude maaltijd</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="datumFilter">Datum:</label>
+                <select id="datumFilter" name="datumFilter" class="form-control">
+                    <option value="alle">Alle</option>
+                    <option value="vandaag" selected="@(ViewBag.SelectedDatumFilter == "vandaag")">Vandaag</option>
+                    <option value="morgen" selected="@(ViewBag.SelectedDatumFilter == "morgen")">Morgen</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="filter"></label>
+                <button type="submit" class="btn btn-filter">
+                    <i class="fas fa-filter"></i> Filter
+                </button>
+            </div>
+            
+            <div class="filter-group button-group">
+                <label for="filter"></label>
+                <a href="@Url.Action("Overzicht")" class="btn btn-clear">
+                    <i class="fas fa-times"></i> Reset
+                </a>
+            </div>
+        </div>
+    </form>
+</div>
+
         @if (User.IsInRole("Student"))
         {
             @if (!string.IsNullOrEmpty(ViewBag.CustomError as string))

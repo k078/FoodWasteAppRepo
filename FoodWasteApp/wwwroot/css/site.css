@@ -852,3 +852,130 @@ a {
         max-width: none;
     }
 }
+
+
+/* FILTER */
+.filter-section {
+    background: white;
+    padding: 1.2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+    margin-bottom: 2rem;
+    border: 1px solid #e0e0e0;
+}
+
+.filter-form {
+    width: 100%;
+}
+
+.filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: flex-end;
+}
+
+.filter-group {
+    flex: 1;
+    min-width: 120px;
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+    .filter-group label {
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: #306100;
+        font-size: 0.9rem;
+    }
+
+    .filter-group .form-control {
+        width: 100%;
+        padding: 0.5rem 0.75rem;
+        height: 38px;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        background-color: #f8f9fa;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+
+        .filter-group .form-control:focus {
+            border-color: #8BC750;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(139, 199, 80, 0.25);
+        }
+
+    /* Speciale stijl voor button groups */
+    .filter-group.button-group {
+        justify-content: flex-end; /* Zorgt dat de button onderaan staat */
+        padding-top: 1.7rem; /* Compenseert voor het ontbrekende label */
+    }
+
+.btn-filter, .btn-clear {
+    height: 38px;
+    padding: 0.5rem 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 0px 0px 9px;
+}
+
+.btn-filter {
+    background-color: purple;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+    .btn-filter:hover {
+        background-color: darkblue;
+        color: white;
+    }
+
+.btn-clear {
+    background-color: grey;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    text-decoration: none;
+}
+
+    .btn-clear:hover {
+        background-color: darkgrey;
+        color: white;
+    }
+
+/* Responsive aanpassingen */
+@media (max-width: 992px) {
+    .filter-group {
+        min-width: calc(33% - 1rem);
+    }
+}
+
+@media (max-width: 768px) {
+    .filter-group {
+        min-width: calc(50% - 1rem);
+    }
+
+        .filter-group.button-group {
+            padding-top: 0;
+        }
+}
+
+@media (max-width: 576px) {
+    .filter-section {
+        padding: 1rem;
+    }
+
+    .filter-group {
+        min-width: 100%;
+    }
+}
