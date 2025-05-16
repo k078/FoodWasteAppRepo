@@ -111,21 +111,26 @@ namespace FoodWasteApp.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Student")]
         public IActionResult PakketDetails(int pakketId)
         {
-            // Haal het pakket op aan de hand van het pakketId
             var pakket = _pakketRepo.GetPakketById(pakketId);
-
-            // Controleer of het pakket bestaat
             if (pakket == null)
             {
                 return NotFound();
             }
 
-            // Haal ook de producten op die aan het pakket zijn gekoppeld
             var producten = _pakketRepo.GetPakketProducten(pakketId).ToList();
 
-            // Stel de pakket- en productgegevens in als model voor de weergave
+            var student = _studentRepo.GetStudentByEmail(User.Identity.Name);
+            ViewBag.StudentId = student.Id;
+
+            var isGereserveerd = _pakketRepo
+                .GetGereserveerdePakketten(student.Id)
+                .Any(p => p.Id == pakketId);
+
+            ViewBag.IsGereserveerd = isGereserveerd;
+
             var pakketDetailsViewModel = new PakketDetailsViewModel
             {
                 pakket = pakket,
@@ -134,6 +139,7 @@ namespace FoodWasteApp.Controllers
 
             return View(pakketDetailsViewModel);
         }
+
 
         [HttpPost]
         [Authorize(Roles = "Student")]

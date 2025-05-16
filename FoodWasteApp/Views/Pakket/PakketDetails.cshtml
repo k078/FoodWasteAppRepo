@@ -78,13 +78,26 @@
     </div>
 
     <div class="details-actions">
-        <a href="@Url.Action("Overzicht", "Pakket")" class="btn btn-back">
-            <i class="fas fa-arrow-left"></i> Terug naar overzicht
+        <a href="@Url.Action("Overzicht", "Pakket")" class="btn-back">
+            <i class="fas fa-arrow-left"></i> Terug
         </a>
-        @if (User.IsInRole("Student"))
+
+        @if ((bool)ViewBag.IsGereserveerd)
         {
-            <form method="post" action="@Url.Action("Reserveer", "Pakket", new { id = Model.pakket.Id })">
-                <button type="submit" class="btn btn-reserve">
+            <form method="post" asp-controller="Pakket" asp-action="CancelReservering"
+                  asp-route-pakketId="@Model.pakket.Id" asp-route-studentId="@ViewBag.StudentId"
+                  class="btn-form">
+                <button type="submit" class="btn-card btn-reserve btn-danger">
+                    <i class="fas fa-ban"></i> Annuleer reservering
+                </button>
+            </form>
+        }
+        else
+        {
+            <form method="post" asp-controller="Pakket" asp-action="ReserveerPakket"
+                  asp-route-pakketId="@Model.pakket.Id" asp-route-studentId="@ViewBag.StudentId"
+                  class="btn-form">
+                <button type="submit" class="btn-card btn-update">
                     <i class="fas fa-calendar-check"></i> Reserveer nu
                 </button>
             </form>
