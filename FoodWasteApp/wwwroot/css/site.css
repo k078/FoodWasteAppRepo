@@ -227,6 +227,7 @@ a {
 .btn-card.btn-update {
     background-color: #ffb347 !important;
     justify-content:center !important;
+    margin-top: 0px !important;
 }
 
     .btn-card.btn-update:hover {
