@@ -1,6 +1,5 @@
 html {
     font-size: 14px;
-    font-family: "Frutiger LT STD 77 Black Condensed",helvetica,sans-serif !important;
 }
 
 @media (min-width: 768px) {
@@ -16,7 +15,13 @@ html {
 
 body {
     margin-bottom: 60px;
+    font-family: 'Open Sans', sans-serif;
 }
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+}
+
 /* Table Styling */
 table {
     width: 100%;
@@ -119,6 +124,7 @@ a {
     font-weight: 700 !important; /* Bold */
     font-size: 18px !important; /* Grotere tekst */
     padding: 0.5rem 1rem !important;
+    font-family: 'Montserrat', sans-serif !important;
 }
 
     .nav-link-custom:hover, .nav-link-custom:focus {
