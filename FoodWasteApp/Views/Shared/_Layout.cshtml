@@ -1,8 +1,4 @@
-﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
-@using Microsoft.AspNetCore.Identity
-
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -11,83 +7,66 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/FoodWasteApp.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a asp-controller="Home" asp-action="Index" class="navbar-brand">
-                    <img src="/favicon.ico.png" title="Logo van Avans" width="80" height="60">
-                </a>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between align-content-center">
-                    <ul class="navbar-nav flex-grow-1">
-                        @if(User.IsInRole("Student"))
+        <nav class="navbar navbar-expand-lg navbar-custom box-shadow mb-3">
+            <div class="container-fluid navbar-container">
+                <div class="navbar-brand-container">
+                    <a asp-controller="Home" asp-action="Index" class="navbar-brand">
+                        <img src="/favicon.ico.png" title="Logo van Avans" width="80" height="60">
+                    </a>
+                </div>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                    <i class="fas fa-bars" style="color: #2e7d32;"></i>
+                </button>
+
+                <div class="collapse navbar-collapse navbar-nav-container" id="navbarContent">
+                    <ul class="navbar-nav">
+                        @if (User.IsInRole("Student") || User.IsInRole("Medewerker"))
                         {
-                        <li class="nav-item">
-                            <b>
-                                    <a class="nav-link text-dark" title="Overzicht van alle pakketten" asp-area="" asp-controller="Pakket" asp-action="Overzicht">Overzicht</a>
-                            </b>
-                        </li>
                             <li class="nav-item">
-                                <b>
-                                    <a class="nav-link text-dark" title="Pagina met gereserveerde pakketten" asp-area="" asp-controller="Pakket" asp-action="GereserveerdOverzicht">Gereserveerd</a>
-                                </b>
+                                <a class="nav-link nav-link-custom @(ViewContext.RouteData.Values["controller"]?.ToString() == "Pakket" && ViewContext.RouteData.Values["action"]?.ToString() == "Overzicht" ? "active" : "")"
+                                   asp-controller="Pakket" asp-action="Overzicht">
+                                    <i class="fas fa-clipboard-list me-2"></i>Overzicht
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-custom @(ViewContext.RouteData.Values["controller"]?.ToString() == "Pakket" && ViewContext.RouteData.Values["action"]?.ToString() == "GereserveerdOverzicht" ? "active" : "")"
+                                   asp-controller="Pakket" asp-action="GereserveerdOverzicht">
+                                    <i class="fas fa-calendar-check me-2"></i>Gereserveerd
+                                </a>
                             </li>
                         }
                         @if (User.IsInRole("Medewerker"))
                         {
                             <li class="nav-item">
-                                <b>
-                                    <a class="nav-link text-dark" title="Overzicht van alle pakketten" asp-area="" asp-controller="Pakket" asp-action="Overzicht">Overzicht</a>
-                                </b>
-                            </li>
-                            <li class="nav-item">
-                                <b>
-                                    <a class="nav-link text-dark" title="Pagina met gereserveerde pakketten" asp-area="" asp-controller="Pakket" asp-action="GereserveerdOverzicht">Gereserveerd</a>
-                                </b>
-                            </li>
-                            <li class="nav-item">
-                                <b>
-                                    <a class="nav-link text-dark" title="Toevoegpagina" asp-area="" asp-controller="Pakket" asp-action="AddPakket">Toevoegen</a>
-                                </b>
+                                <a class="nav-link nav-link-custom @(ViewContext.RouteData.Values["controller"]?.ToString() == "Pakket" && ViewContext.RouteData.Values["action"]?.ToString() == "AddPakket" ? "active" : "")"
+                                   asp-controller="Pakket" asp-action="AddPakket">
+                                    <i class="fas fa-plus-circle me-2"></i>Toevoegen
+                                </a>
                             </li>
                         }
                     </ul>
-                    <div class="ml-auto"></div>
+                </div>
+
+                <div class="navbar-logout-container">
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <ul class="navbar-nav right">
-                            <li>
-                                <form method="post" title="Uitloggen" asp-area="" asp-controller="Account" asp-action="LogOut">
-                                    @Html.AntiForgeryToken()
-                                    <button style="color: black" type="submit" class="btn btn-logout">
-                                        <i class="fas fa-sign-out-alt"></i> Uitloggen
-                                    </button>
-                                </form>
-
-                            </li>
-                        </ul>
+                        <form method="post" asp-controller="Account" asp-action="LogOut">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-logout-custom">
+                                <i class="fas fa-sign-out-alt me-2"></i>Uitloggen
+                            </button>
+                        </form>
                     }
-                    else{
-<ul class="navbar-nav right">
-    <li class="nav-item" style="margin-right: 30px;">
-        <form method="get" title="Inloggen" asp-area="" asp-controller="Account" asp-action="Login">
-            <button style="color: black" class="btn btn-logout">
-                <i class="fas fa-user" title="Login"></i>Login
-            </button>
-        </form>
-    </li>
-    <li class="nav-item" style="margin-right: 10px;">
-        <form method="get" title="Registreren" asp-area="" asp-controller="Account" asp-action="Register">
-            <button style="color: black" class="btn btn-logout">
-                <i class="fas fa-user-plus" title="Registreer"></i>Registreer
-            </button>
-        </form>
-    </li>
-</ul>
-
+                    else
+                    {
+                        <a class="btn btn-logout-custom" asp-controller="Account" asp-action="Login">
+                            <i class="fas fa-sign-in-alt me-2"></i>Inloggen
+                        </a>
                     }
                 </div>
             </div>
@@ -101,10 +80,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            <a>
-
-            &copy; 2023 - FoodWasteApp
-            </a>
+            <a>&copy; 2025 - FoodWasteApp</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

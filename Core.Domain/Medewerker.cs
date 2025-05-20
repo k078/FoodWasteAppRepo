@@ -13,5 +13,6 @@ namespace Core.Domain
         public string email { get; set; }   
         public int persooneelsNr { get; set; }
         public Kantine kantine { get; set; }
+        public int kantineId {  get; set; }
     }
 }

@@ -1,6 +1,5 @@
 html {
     font-size: 14px;
-    font-family: "Frutiger LT STD 77 Black Condensed",helvetica,sans-serif !important;
 }
 
 @media (min-width: 768px) {
@@ -16,7 +15,13 @@ html {
 
 body {
     margin-bottom: 60px;
+    font-family: 'Open Sans', sans-serif;
 }
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+}
+
 /* Table Styling */
 table {
     width: 100%;
@@ -61,19 +66,11 @@ footer {
 }
 
 .footer a {
-    color: #306100 !important;
-}
-
-.navbar {
-    background-color: white !important;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    font-size: large;
+    color: #2e7d32 !important;
 }
 
 body {
-    background-color: #E6FFCC;
+    background-color: #F5F0E6;
 }
 
 a {
@@ -81,8 +78,120 @@ a {
     color: #306100;
 }
 
-.navbar a {
-    color: #306100 !important;
+
+
+.btn-nav-custom {
+    background-color: #2e7d32 !important; /* Groene achtergrond */
+    color: white !important;
+    border: none !important;
+}
+
+    .btn-nav-custom:hover {
+        background-color: #1e5e22 !important; /* Donkerder groen bij hover */
+    }
+
+.navbar-custom {
+    background-color: white !important;
+    border-bottom: 2px solid #2e7d32 !important;
+}
+
+.navbar-container {
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+
+.navbar-brand-container {
+    width: 150px; /* Gelijk aan logout container */
+    flex-shrink: 0;
+}
+
+.navbar-nav-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.navbar-logout-container {
+    width: 150px; /* Gelijk aan brand container */
+    flex-shrink: 0;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.nav-link-custom {
+    color: #2e7d32 !important;
+    font-weight: 700 !important; /* Bold */
+    font-size: 18px !important; /* Grotere tekst */
+    padding: 0.5rem 1rem !important;
+    font-family: 'Montserrat', sans-serif !important;
+}
+
+    .nav-link-custom:hover, .nav-link-custom:focus {
+        background-color: rgba(128, 215, 132, 0.2) !important;
+    }
+
+    .nav-link-custom.active {
+        font-weight: bold;
+        color: #2e7d32 !important;
+        background-color: #e8f5e9;
+        border-radius: 5px;
+    }
+
+
+
+.btn-logout-custom {
+    background-color: #dc4a4a !important; /* Lichtrood */
+    color: white !important;
+    border: none !important;
+    font-weight: 700 !important; /* Bold */
+    font-size: 18px !important; /* Grotere tekst */
+    padding: 0.5rem 1rem !important;
+    width: 100%;
+    max-width: 150px;
+}
+
+    .btn-logout-custom:hover {
+        background-color: #ba0909 !important; /* Donkerder rood/oranje */
+    }
+
+.navbar-brand img {
+    transition: transform 0.3s;
+}
+
+.navbar-brand:hover img {
+    transform: scale(1.05);
+}
+
+.navbar-nav {
+    justify-content: center;
+}
+
+.nav-item {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+@media (max-width: 991.98px) {
+    .navbar-container {
+        flex-direction: column;
+    }
+
+    .navbar-brand-container,
+    .navbar-logout-container {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .navbar-nav-container {
+        order: 2;
+        width: 100%;
+    }
+
+    .navbar-logout-container {
+        order: 3;
+        margin-top: 1rem;
+    }
 }
 
 .alert {
@@ -108,53 +217,771 @@ a {
         color: black;
         border-color: black !important;
     }
-.btn-danger{
-    background-color: #ff9c9c !important;
-    color: black;
-    border-color: black !important;
+
+/* Verwijder button - Rood */
+.btn-card.btn-danger {
+    background-color: #dc4a4a !important;
 }
 
-    .btn-danger:hover {
-        background-color: #ff7a7a !important;
-        color: black;
-        border-color: black !important;
+    .btn-card.btn-danger:hover {
+        background-color: #c23a3a !important;
+        transform: translateY(-2px);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
 
-.btn-update {
-    background-color: #89b2ff !important;
-    color: black;
-    border-color: black !important;
+/* Bewerk button - Geel/oranje */
+.btn-card.btn-update {
+    background-color: #ffb347 !important;
+    justify-content:center !important;
+    margin-top: 0px !important;
 }
-    .btn-update:hover {
-        background-color: #4e8cff !important;
-        color: black;
-        border-color: black !important;
+
+    .btn-card.btn-update:hover {
+        background-color: #e69a3e !important;
+        transform: translateY(-2px);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
-.btn-info {
-    background-color: ghostwhite !important;
-    color: black;
-    border-color: black !important;
+
+/* Details button - Bruin */
+.btn-card.btn-info {
+    background-color: #8b5e3c !important;
+    font-weight: 200px;
 }
-.btn-info:hover {
-    background-color: #dedede !important;
-    color: black;
-    border-color: black !important;
-}
+
+    .btn-card.btn-info:hover {
+        background-color: #6d4a2f !important;
+        transform: translateY(-2px);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
 .btn-logout {
-    background-color: #ddd !important;
+    background-color: #f1bcbc !important;
     border-color: black !important;
     color: black !important;
 }
-.btn-logout:hover {
-    background-color: #808080 !important;
-    color: black;
-    border-color: black !important;
-}
+
+    .btn-logout:hover {
+        background-color: #808080 !important;
+        color: black;
+        border-color: black !important;
+    }
+
 .btn i.fas {
     margin-right: 5px; /* Ruimte tussen het icoon en de tekst aanpassen */
     font-size: 20px; /* Grootte van het icoon aanpassen */
 }
+
 .custom-icon {
     font-size: 1.5em; /* Verander deze waarde om de grootte aan te passen */
 }
+/* AddPakket Pagina Styling */
+.add-pakket-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
+.add-pakket-title {
+    color: #2e7d32;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.section-title {
+    color: #2e7d32;
+    font-size: 1.3rem;
+    margin: 1.5rem 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #8BC750;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.form-label {
+    font-weight: bold;
+    color: #2e7d32;
+    margin-bottom: 0rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 0.5rem;
+    background-color: #f9f9f9;
+}
+
+    .form-control:focus {
+        border-color: #8BC750;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(139, 199, 80, 0.3);
+    }
+
+.datetime-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+@media (max-width: 768px) {
+    .datetime-inputs {
+        grid-template-columns: 1fr;
+    }
+}
+
+.radio-group {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.radio-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.checkbox-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+.form-check {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.form-check-input {
+    width: 1.2em;
+    height: 1.2em;
+    margin-top: 0;
+}
+
+.euro-symbol {
+    position: absolute;
+    left: 12px;
+    color: #306100;
+    font-weight: bold;
+    z-index: 2;
+    padding-bottom: 7px;
+    pointer-events: none;
+}
+
+
+.price-input-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+
+.price-input {
+    flex: 1;
+    padding-left: 30px !important;
+}
+
+.price-input-wrapper {
+    position: relative;
+}
+
+
+.btn-add {
+    background-color: #2e7d32 !important;
+    color: white !important;
+    border-color: #2e7d32 !important;
+    padding: 0.6rem 1.5rem;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 1rem;
+    width: 100%;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+    .btn-add:hover {
+        background-color: #1e5e22 !important;
+        border-color: #1e5e22 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .btn-add:active {
+        transform: translateY(0);
+    }
+
+.validation-message {
+    color: #d9534f;
+    font-size: 0.9rem;
+    margin-top: -0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.details-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.details-header {
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #8BC750;
+    padding-bottom: 1rem;
+}
+
+.details-title {
+    color: #2e7d32;
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.pakket-name {
+    color: #2e7d32;
+    font-size: 1.5rem;
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.details-content {
+    display: grid;
+    gap: 2rem;
+}
+
+.details-section {
+    background-color: #f9f9f9;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 4px solid #8BC750;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+    .detail-item:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+.detail-icon {
+    color: #2e7d32;
+    font-size: 1.2rem;
+    width: 30px;
+    text-align: center;
+}
+
+.detail-label {
+    font-weight: bold;
+    color: #2e7d32;
+    margin-right: 0.5rem;
+}
+
+.detail-value {
+    color: #333;
+}
+
+.producten-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.75rem;
+}
+
+.product-item {
+    padding: 0.5rem;
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+    .product-item i {
+        font-size: 0.5rem;
+        color: #8BC750;
+    }
+
+.details-actions {
+    display: flex;
+    max-width: 100%;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.btn-back {
+    flex: 0 0 65%;
+    background-color: #f5f0e6;
+    color: #2e7d32;
+    border: 2px solid #2e7d32;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 6px;
+    transition: background-color 0.3s, color 0.3s;
+    margin: 0px !important;
+}
+
+    .btn-back:hover {
+        background-color: #1e5e22;
+        color: #fff;
+    }
+
+/* Reserveer button - Groen (consistent met andere acties) */
+.btn-card.btn-reserve {
+    width: 90%;
+    background-color: #2e7d32;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 6px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+    .btn-card.btn-reserve:hover {
+        background-color: #1b5e20;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+.btn-form {
+    flex: 0 0 35%;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .details-actions {
+        flex-direction: column;
+    }
+
+    .producten-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* OVERZICHT */
+.pakketten-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+    padding: 20px;
+}
+
+.pakket-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #e0e0e0;
+}
+
+    .pakket-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+    }
+
+.card-header {
+    background-color: #2e7d32;
+    color: white;
+    padding: 15px;
+    position: relative;
+}
+
+    .card-header h3 {
+        margin: 0;
+        font-size: 1.4rem;
+        font-weight: 600;
+    }
+
+.card-body {
+    padding: 20px;
+}
+
+.card-detail {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+}
+
+    .card-detail i {
+        width: 24px;
+        color: #2e7d32;
+        margin-right: 10px;
+        text-align: center;
+    }
+
+.card-price {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #2e7d32;
+    margin: 15px 0;
+    text-align: center;
+}
+
+.card-footer {
+    display: flex;
+    gap: 10px;
+    padding: 15px 20px;
+    background-color: #f9f9f9;
+    border-top: 1px solid #eee;
+    align-items: center !important;
+}
+
+.btn-card {
+    padding: 0.6rem 1rem !important;
+    border-radius: 5px !important;
+    font-weight: 600 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 100px !important;
+    transition: all 0.3s ease !important;
+    border: none !important;
+    color: white !important;
+    flex: 1 !important;
+    text-decoration: none !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    height: 100% !important; /* Zorgt voor gelijke hoogte */
+    box-sizing: border-box !important; /* Zorgt dat padding meerekent in hoogte */
+    line-height: normal !important; /* Consistentie in tekstpositionering */
+}
+
+
+    .btn-card i {
+        margin-right: 6px;
+    }
+
+.section-title {
+    color: #2e7d32;
+    font-size: 1.8rem;
+    margin: 30px 20px 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #2e7d32;
+    display: flex;
+    align-items: center;
+}
+
+    .section-title i {
+        margin-right: 10px;
+    }
+
+.no-pakketten {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+    .no-pakketten i {
+        font-size: 3rem;
+        color: #2e7d32;
+        margin-bottom: 15px;
+    }
+
+    .no-pakketten h3 {
+        color: #de5f53;
+        margin-bottom: 10px;
+    }
+
+.alert-custom {
+    grid-column: 1 / -1;
+}
+
+.btn-back {
+    flex: 0 0 65%;
+    background-color: #2e7d32;
+    color: white;
+    border: none;
+    padding: 0.85rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+    .btn-back:hover {
+        background-color: #1e5e22;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .btn-back:active {
+        transform: translateY(0);
+    }
+
+.badges-container {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    display: flex;
+    gap: 8px;
+}
+
+.card-badge,
+.card-datum-today,
+.card-datum-tomorrow {
+    position: static;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    white-space: nowrap;
+}
+
+.card-badge {
+    background-color: red;
+}
+
+.card-datum-today {
+    background-color: red;
+}
+
+.card-datum-tomorrow {
+    background-color: orange;
+}
+
+/* Update button styling - vergelijkbaar met add button */
+.btn-update {
+    background-color: #2e7d32 !important;
+    color: white !important;
+    border-color: #2e7d32 !important;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+    width: 100%;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+    .btn-update:hover {
+        background-color: #1e5e22 !important;
+        border-color: #1e5e22 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .btn-update:active {
+        transform: translateY(0);
+    }
+
+/* Aanvullende radio button styling */
+.radio-group {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.radio-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+    .radio-option input[type="radio"] {
+        accent-color: #2e7d32;
+    }
+
+/* Gereserveerde pakketten specifieke styling */
+.reservering-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background-color: #f5f0e6;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+/* Aanpassingen voor annuleer knop */
+.btn-danger {
+    background-color: #f1bcbc !important;
+    color: white !important;
+    border: none !important;
+    transition: all 0.3s ease;
+}
+
+    .btn-danger:hover {
+        background-color: #e27d60 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+/* Responsive aanpassingen */
+@media (max-width: 768px) {
+    .card-footer {
+        flex-direction: column;
+    }
+
+    .btn-card {
+        width: 100%;
+        max-width: none;
+    }
+}
+
+
+/* FILTER */
+.filter-section {
+    background: white;
+    padding: 1.2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+    margin-bottom: 2rem;
+    border: 1px solid #e0e0e0;
+}
+
+.filter-form {
+    width: 100%;
+}
+
+.filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: flex-end;
+}
+
+.filter-group {
+    flex: 1;
+    min-width: 120px;
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+    .filter-group label {
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: #306100;
+        font-size: 0.9rem;
+    }
+
+    .filter-group .form-control {
+        width: 100%;
+        padding: 0.5rem 0.75rem;
+        height: 38px;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        background-color: #f8f9fa;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+
+        .filter-group .form-control:focus {
+            border-color: #8BC750;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(139, 199, 80, 0.25);
+        }
+
+    /* Speciale stijl voor button groups */
+    .filter-group.button-group {
+        justify-content: flex-end; /* Zorgt dat de button onderaan staat */
+        padding-top: 1.7rem; /* Compenseert voor het ontbrekende label */
+    }
+
+.btn-filter, .btn-clear {
+    height: 38px;
+    padding: 0.5rem 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 0px 0px 9px;
+}
+
+.btn-filter {
+    background-color: purple;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+    .btn-filter:hover {
+        background-color: darkblue;
+        color: white;
+    }
+
+.btn-clear {
+    background-color: grey;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    text-decoration: none;
+}
+
+    .btn-clear:hover {
+        background-color: darkgrey;
+        color: white;
+    }
+
+/* Responsive aanpassingen */
+@media (max-width: 992px) {
+    .filter-group {
+        min-width: calc(33% - 1rem);
+    }
+}
+
+@media (max-width: 768px) {
+    .filter-group {
+        min-width: calc(50% - 1rem);
+    }
+
+        .filter-group.button-group {
+            padding-top: 0;
+        }
+}
+
+@media (max-width: 576px) {
+    .filter-section {
+        padding: 1rem;
+    }
+
+    .filter-group {
+        min-width: 100%;
+    }
+}
