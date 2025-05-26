@@ -207,15 +207,22 @@ a {
 }
 
 .btn-primary {
-    background-color: #C8FA96 !important;
-    color: black;
-    border-color: black !important;
+    flex: 0 0 65%;
+    background-color: #2e7d32;
+    color: white;
+    border: 2px solid #2e7d32;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 6px;
+    transition: background-color 0.3s, color 0.3s;
+    margin: 0px !important;
 }
 
     .btn-primary:hover {
-        background-color: #80a059 !important;
-        color: black;
-        border-color: black !important;
+        background-color: #1e5e22;
+        color: #fff;
+        border: 2px solid #1e5e22;
     }
 
 /* Verwijder button - Rood */

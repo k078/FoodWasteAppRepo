@@ -160,10 +160,10 @@ namespace FoodWasteApp.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Student")]
+        [Authorize(Roles = "Student, Medewerker")] // Beide rollen toegestaan
         public IActionResult PakketDetails(int pakketId)
         {
-             var pakket = _pakketRepo.GetPakketById(pakketId);
+            var pakket = _pakketRepo.GetPakketById(pakketId);
             if (pakket == null)
             {
                 return NotFound();
@@ -171,12 +171,22 @@ namespace FoodWasteApp.Controllers
 
             var producten = _pakketRepo.GetPakketProducten(pakketId).ToList();
 
-            var student = _studentRepo.GetStudentByEmail(User.Identity.Name);
-            ViewBag.StudentId = student.Id;
+            // Alleen voor studenten: controleer of ze het pakket hebben gereserveerd
+            bool isGereserveerd = false;
+            if (User.IsInRole("Student"))
+            {
+                var student = _studentRepo.GetStudentByEmail(User.Identity.Name);
+                ViewBag.StudentId = student.Id;
 
-            var isGereserveerd = _pakketRepo
-                .GetGereserveerdePakketten(student.Id)
-                .Any(p => p.Id == pakketId);
+                isGereserveerd = _pakketRepo
+                    .GetGereserveerdePakketten(student.Id)
+                    .Any(p => p.Id == pakketId);
+            }
+            else if (User.IsInRole("Medewerker"))
+            {
+                var medewerker = _medewerkerRepo.GetMedewerkerByEmail(User.Identity.Name);
+                ViewBag.MedewerkerId = medewerker.Id;
+            }
 
             ViewBag.IsGereserveerd = isGereserveerd;
 

@@ -6,7 +6,7 @@
 <div class="details-container">
     <div class="details-header">
         <h1 class="details-title">
-             Pakket Details
+            Pakket Details
         </h1>
         <h2 class="pakket-name">
             <i class="fas fa-utensils"></i> @Model.pakket.titel
@@ -82,25 +82,28 @@
             <i class="fas fa-arrow-left"></i> Terug
         </a>
 
-        @if ((bool)ViewBag.IsGereserveerd)
+        @if (User.IsInRole("Student"))
         {
-            <form method="post" asp-controller="Pakket" asp-action="CancelReservering"
-                  asp-route-pakketId="@Model.pakket.Id" asp-route-studentId="@ViewBag.StudentId"
-                  class="btn-form">
-                <button type="submit" class="btn-card btn-reserve btn-danger">
-                    <i class="fas fa-ban"></i> Annuleer reservering
-                </button>
-            </form>
-        }
-        else
-        {
-            <form method="post" asp-controller="Pakket" asp-action="ReserveerPakket"
-                  asp-route-pakketId="@Model.pakket.Id" asp-route-studentId="@ViewBag.StudentId"
-                  class="btn-form">
-                <button type="submit" class="btn-card btn-update">
-                    <i class="fas fa-calendar-check"></i> Reserveer nu
-                </button>
-            </form>
+            @if ((bool)ViewBag.IsGereserveerd)
+            {
+                <form method="post" asp-controller="Pakket" asp-action="CancelReservering"
+                      asp-route-pakketId="@Model.pakket.Id" asp-route-studentId="@ViewBag.StudentId"
+                      class="btn-form">
+                    <button type="submit" class="btn-card btn-reserve btn-danger">
+                        <i class="fas fa-ban"></i> Annuleer reservering
+                    </button>
+                </form>
+            }
+            else
+            {
+                <form method="post" asp-controller="Pakket" asp-action="ReserveerPakket"
+                      asp-route-pakketId="@Model.pakket.Id" asp-route-studentId="@ViewBag.StudentId"
+                      class="btn-form">
+                    <button type="submit" class="btn-card btn-update">
+                        <i class="fas fa-calendar-check"></i> Reserveer nu
+                    </button>
+                </form>
+            }
         }
     </div>
 </div>
